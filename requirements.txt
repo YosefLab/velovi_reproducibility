@@ -1,0 +1,4 @@
+velovi
+git+https://github.com/theislab/scvelo.git@develop
+joypy
+mplscience
