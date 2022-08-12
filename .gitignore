@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Data
+data/
+
+# Figures
+figures/
+
+# Runtime analysis files
+runtime_results/
