@@ -1,0 +1,10 @@
+title: VeloVI Reproducibility
+author: VeloVI Team
+execute:
+  execute_notebooks: 'off'
+
+repository:
+  url: https://github.com/YosefLab/velovi_reproducibility
+html:
+  use_repository_button: true
+

@@ -136,3 +136,6 @@ figures/
 
 # Runtime analysis files
 runtime_results/
+
+# Jupyter book build
+notebooks/_build/
