@@ -4,7 +4,8 @@ name: deploy-book
 on:
   push:
     branches:
-    - master
+    - main
+    - jhong/jbook
 
 # This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
