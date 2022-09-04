@@ -1,0 +1,46 @@
+format: jb-book
+root: intro
+parts:
+  - caption: Estimation Comparison
+    chapters:
+      - file: estimation_comparison/model_fit
+      - file: estimation_comparison/pancreas
+  - caption: Time Dependent Rates
+    chapters:
+      - file: time_dependent_rates/mse_comparison
+      - file: time_dependent_rates/pancreas
+  - caption: Permutation Score
+    chapters:
+      - file: permutation_score/pfc
+      - file: permutation_score/dataset_comparison
+      - file: permutation_score/old_brain
+      - file: permutation_score/spermatogenesis
+      - file: permutation_score/pancreas
+  - caption: Uncertainty
+    chapters:
+      - file: uncertainty/pancreas
+  - caption: Case Studies
+    chapters:
+      - file: case_studies/dentategyrus
+      - file: case_studies/pbmc
+  - caption: Runtime Analysis
+    chapters:
+      - file: runtime_analysis/velo_runtime_analysis
+  - caption: Preprocessing Stability
+    chapters:
+      - file: preprocessing_stability/dentategyrus/README
+        sections:
+        - glob: preprocessing_stability/dentategyrus/*
+      - file: preprocessing_stability/old_brain/README
+        sections:
+        - glob: preprocessing_stability/old_brain/*
+      - file: preprocessing_stability/pancreas/README
+        sections:
+        - glob: preprocessing_stability/pancreas/*
+      - file: preprocessing_stability/pfc/README
+        sections:
+        - glob: preprocessing_stability/pfc/*
+      - file: preprocessing_stability/spermatogenesis/README
+        sections:
+        - glob: preprocessing_stability/spermatogenesis/*
+
