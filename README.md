@@ -2,6 +2,8 @@
 
 This code contains the code to reproduce the results shown in "Deep generative modeling of transcriptional dynamics for RNA velocity analysis in single cells".
 
+This repository has also been rendered as a jupyter book [here](https://yoseflab.github.io/velovi_reproducibility/intro.html).
+
 All used datasets are freely available:
 * Via [scVelo](https://scvelo.readthedocs.io/), you can download the
     * [Pancreatic endocrinogenesis data](https://scvelo.readthedocs.io/scvelo.datasets.pancreas/#scvelo.datasets.pancreas),
