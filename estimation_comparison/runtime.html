@@ -1,0 +1,3258 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Runtime comparison &#8212; VeloVI Reproducibility</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MSE with time dependent transcription rate" href="../time_dependent_rates/mse_comparison.html" />
+    <link rel="prev" title="Inference comparison on simulated data" href="simulated.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">VeloVI Reproducibility</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Intro
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Estimation Comparison
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="model_fit.html">
+   Model fit comparsion - MSE, velocity confidence, correlation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="pancreas.html">
+   Comparison of velocities between EM and VI model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="simulated.html">
+   Inference comparison on simulated data
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Runtime comparison
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Time Dependent Rates
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../time_dependent_rates/mse_comparison.html">
+   MSE with time dependent transcription rate
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../time_dependent_rates/pancreas.html">
+   MSE with time dependent transcription rate
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Permutation Score
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../permutation_score/pfc.html">
+   Permutation score analysis - Pre-frontal cortex
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../permutation_score/dataset_comparison.html">
+   Permutation score - Dataset comparison
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../permutation_score/old_brain.html">
+   Imports and helper functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../permutation_score/spermatogenesis.html">
+   Permutation score analysis - Spermatogenesis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../permutation_score/pancreas.html">
+   Permutation score analysis - Pancreas
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Uncertainty
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../uncertainty/pancreas.html">
+   Uncertainty analysis - Pancreas
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Case Studies
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../case_studies/dentategyrus.html">
+   Uncertainty analysis - Dentate gyrus
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../case_studies/pbmc.html">
+   PBMC
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Runtime Analysis
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../runtime_analysis/velo_runtime_analysis.html">
+   VeloVI Runtime Analysis
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Preprocessing Stability
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../preprocessing_stability/dentategyrus/README.html">
+   Preprocessing analysis for RNA velocity in dentate gyurs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/adata_generation.html">
+     Data generation for RNA velocity analysis in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_decoy_gtr_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_decoy_gtr_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_gtr_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_gtr_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_decoy_gtr_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_decoy_gtr_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_gtr_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_gtr_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_spliced_unspliced_gtr_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_spliced_unspliced_gtr_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/correlation_analysis.html">
+     Correlation analysis across preprocessing tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_exclude_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_exclude_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_include_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_include_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_exclude_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_exclude_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_include_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_include_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_subtr_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_subtr_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../preprocessing_stability/old_brain/README.html">
+   Preprocessing analysis for RNA velocity in mouse brain
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/adata_generation.html">
+     Data generation for RNA velocity analysis in mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_decoy_gtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_decoy_gtr_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_gtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_gtr_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_decoy_gtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_decoy_gtr_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_gtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_gtr_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_spliced_unspliced_gtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_spliced_unspliced_gtr_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/correlation_analysis.html">
+     Correlation analysis across preprocessing tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/dropest_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/dropest_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_exclude_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_exclude_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_include_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_include_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_exclude_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_exclude_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_include_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_include_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_subtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_subtr_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/velocyto_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/velocyto_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../preprocessing_stability/pancreas/README.html">
+   Preprocessing analysis for RNA velocity in panreatic endocrinogenesis
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/adata_generation.html">
+     Data generation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_decoy_gtr_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_decoy_gtr_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_gtr_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_gtr_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_decoy_gtr_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_decoy_gtr_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_gtr_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_gtr_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_spliced_unspliced_gtr_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_spliced_unspliced_gtr_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/correlation_analysis.html">
+     Correlation analysis across preprocessing tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/dropest_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/dropest_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_exclude_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_exclude_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_include_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_include_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_exclude_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_exclude_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_include_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_include_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_subtr_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_subtr_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/velocyto_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/velocyto_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../preprocessing_stability/pfc/README.html">
+   Preprocessing analysis for RNA velocity in the prefrontal coretex
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/adata_generation.html">
+     Data generation for RNA velocity analysis in pre-frontal cortex
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_decoy_gtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_decoy_gtr_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_gtr_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_gtr_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_decoy_gtr_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_decoy_gtr_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_gtr_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_gtr_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_spliced_unspliced_gtr_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_spliced_unspliced_gtr_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/correlation_analysis.html">
+     Correlation analysis across preprocessing tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/dropest_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/dropest_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_exclude_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_exclude_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_include.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_include_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_exclude_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_exclude_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_include_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_include_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/starsolo_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/starsolo_subtr_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/starsolo_subtr_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/starsolo_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/velocyto_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/velocyto_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../preprocessing_stability/spermatogenesis/README.html">
+   Preprocessing analysis for RNA velocity in spermatogenesis
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/adata_generation.html">
+     Data generation for RNA velocity analysis in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_decoy_gtr_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_decoy_gtr_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_gtr_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_gtr_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_decoy_gtr_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_decoy_gtr_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_gtr_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_gtr_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_spliced_unspliced_gtr_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_spliced_unspliced_gtr_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/correlation_analysis.html">
+     Correlation analysis across preprocessing tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/dropest_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/dropest_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_exclude_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_exclude_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_include_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_include_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_exclude_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_exclude_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_include_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_include_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_subtr_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_subtr_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/velocyto_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/velocyto_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/YosefLab/velovi_reproducibility/master?urlpath=tree/estimation_comparison/runtime.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/YosefLab/velovi_reproducibility"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/estimation_comparison/runtime.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#download-data">
+   Download Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#imports">
+   Imports
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#general-settings">
+   General settings
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#function-definitions">
+   Function definitions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-loading">
+   Data loading
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#run-tests">
+   Run tests
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plotting">
+   Plotting
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Runtime comparison</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#download-data">
+   Download Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#imports">
+   Imports
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#general-settings">
+   General settings
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#function-definitions">
+   Function definitions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-loading">
+   Data loading
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#run-tests">
+   Run tests
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plotting">
+   Plotting
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="runtime-comparison">
+<h1>Runtime comparison<a class="headerlink" href="#runtime-comparison" title="Permalink to this headline">#</a></h1>
+<section id="download-data">
+<h2>Download Data<a class="headerlink" href="#download-data" title="Permalink to this headline">#</a></h2>
+<p>Using data from <a class="reference external" href="https://github.com/pachterlab/MBLGLMBHGP_2021/blob/master/notebooks/retina_velocity.ipynb">https://github.com/pachterlab/MBLGLMBHGP_2021/blob/master/notebooks/retina_velocity.ipynb</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>mkdir ../../data/kallisto
+<span class="o">!</span>wget -O ../../data/kallisto/retina.h5ad.gz https://caltech.box.com/shared/static/lo6satyyrjhvhgkmj3gv39360eshxa3n.gz
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>gunzip ../../data/kallisto/retina.h5ad.gz
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">mplscience</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">import</span> <span class="nn">anndata</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">import</span> <span class="nn">scvi</span>
+<span class="kn">import</span> <span class="nn">scvelo</span> <span class="k">as</span> <span class="nn">scv</span>
+<span class="kn">from</span> <span class="nn">velovi</span> <span class="kn">import</span> <span class="n">VELOVI</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;../..&quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">paths</span> <span class="kn">import</span> <span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">FIG_DIR</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Global seed set to 0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="general-settings">
+<h2>General settings<a class="headerlink" href="#general-settings" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scvi</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">dl_pin_memory_gpu_training</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">reset_defaults</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">reset_orig</span><span class="p">()</span>
+<span class="n">scv</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="s1">&#39;scvelo&#39;</span><span class="p">,</span> <span class="n">dpi_save</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color_map</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SAVE_FIGURES</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">SAVE_FIGURES</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">FIG_DIR</span> <span class="o">/</span> <span class="s1">&#39;comparison&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s1">&#39;runtime_results&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="function-definitions">
+<h2>Function definitions<a class="headerlink" href="#function-definitions" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit_scvelo</span><span class="p">(</span><span class="n">adata</span><span class="p">):</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">scv</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">recover_dynamics</span><span class="p">(</span>
+        <span class="n">adata</span><span class="p">,</span> <span class="n">fit_scaling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">8</span>
+    <span class="p">)</span>
+    <span class="n">scv</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">velocity</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;dynamical&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit_velovi</span><span class="p">(</span><span class="n">bdata</span><span class="p">):</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">VELOVI</span><span class="o">.</span><span class="n">setup_anndata</span><span class="p">(</span><span class="n">bdata</span><span class="p">,</span> <span class="n">spliced_layer</span><span class="o">=</span><span class="s2">&quot;Ms&quot;</span><span class="p">,</span> <span class="n">unspliced_layer</span><span class="o">=</span><span class="s2">&quot;Mu&quot;</span><span class="p">)</span>
+
+    <span class="n">vae</span> <span class="o">=</span> <span class="n">VELOVI</span><span class="p">(</span><span class="n">bdata</span><span class="p">)</span>
+    <span class="n">vae</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+    <span class="n">velocities</span> <span class="o">=</span> <span class="n">vae</span><span class="o">.</span><span class="n">get_velocity</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">velo_statistic</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">min_max_scaled</span><span class="p">(</span><span class="n">bdata</span><span class="p">):</span>
+    <span class="n">mu_scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+    <span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;Mu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mu_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;Mu&#39;</span><span class="p">])</span>
+    <span class="n">ms_scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+    <span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;Ms&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ms_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;Ms&#39;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">bdata</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_runtime_tests</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">subsample_ns</span><span class="p">):</span>
+    <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;scvelo&quot;</span><span class="p">,</span> <span class="s2">&quot;velovi&quot;</span><span class="p">]</span>
+    <span class="n">configs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">methods</span><span class="p">,</span> <span class="n">subsample_ns</span><span class="p">))</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">configs</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">subsample_n</span> <span class="ow">in</span> <span class="n">configs</span><span class="p">:</span>
+        <span class="n">save_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;runtime_results/</span><span class="si">{</span><span class="n">method_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">subsample_n</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">save_name</span><span class="si">}</span><span class="s2">.npy&quot;</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">save_name</span><span class="si">}</span><span class="s2"> already exists, skipping&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Running </span><span class="si">{</span><span class="n">method_name</span><span class="si">}</span><span class="s2"> with subsample_n=</span><span class="si">{</span><span class="n">subsample_n</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="n">bdata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">subsample</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_obs</span><span class="o">=</span><span class="n">subsample_n</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">method_name</span> <span class="o">==</span> <span class="s2">&quot;scvelo&quot;</span><span class="p">:</span>
+            <span class="n">runtime_s</span> <span class="o">=</span> <span class="n">fit_scvelo</span><span class="p">(</span><span class="n">bdata</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">method_name</span> <span class="o">==</span> <span class="s2">&quot;velovi&quot;</span><span class="p">:</span>
+            <span class="n">bdata</span> <span class="o">=</span> <span class="n">min_max_scaled</span><span class="p">(</span><span class="n">bdata</span><span class="p">)</span>
+            <span class="n">runtime_s</span> <span class="o">=</span> <span class="n">fit_velovi</span><span class="p">(</span><span class="n">bdata</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+
+        <span class="n">res_row</span> <span class="o">=</span> <span class="p">[</span><span class="n">subsample_n</span><span class="p">,</span> <span class="n">runtime_s</span><span class="p">,</span> <span class="n">method_name</span><span class="p">]</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">save_name</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">res_row</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-loading">
+<h2>Data loading<a class="headerlink" href="#data-loading" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">anndata</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;kallisto&quot;</span> <span class="o">/</span> <span class="s2">&quot;retina.h5ad&quot;</span><span class="p">)</span>
+<span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AnnData object with n_obs × n_vars = 113909 × 5000
+    obs: &#39;sample&#39;, &#39;time&#39;, &#39;barcode&#39;, &#39;umap_cluster&#39;, &#39;umap_coord1&#39;, &#39;umap_coord2&#39;, &#39;umap_coord3&#39;, &#39;used_for_pseudotime&#39;, &#39;umap2_CellType&#39;, &#39;n_genes&#39;, &#39;initial_size_spliced&#39;, &#39;initial_size_unspliced&#39;, &#39;initial_size&#39;, &#39;n_counts&#39;, &#39;velocity_self_transition&#39;
+    var: &#39;n_cells&#39;, &#39;means&#39;, &#39;dispersions&#39;, &#39;dispersions_norm&#39;, &#39;highly_variable&#39;, &#39;velocity_gamma&#39;, &#39;velocity_r2&#39;, &#39;velocity_genes&#39;
+    uns: &#39;neighbors&#39;, &#39;pca&#39;, &#39;umap2_CellType_colors&#39;, &#39;velocity_graph&#39;, &#39;velocity_graph_neg&#39;, &#39;velocity_params&#39;
+    obsm: &#39;X_pca&#39;, &#39;X_umap&#39;, &#39;velocity_pca&#39;, &#39;velocity_umap&#39;
+    varm: &#39;PCs&#39;
+    layers: &#39;Ms&#39;, &#39;Mu&#39;, &#39;spliced&#39;, &#39;unspliced&#39;, &#39;variance_velocity&#39;, &#39;velocity&#39;
+    obsp: &#39;connectivities&#39;, &#39;distances&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="run-tests">
+<h2>Run tests<a class="headerlink" href="#run-tests" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run_runtime_tests</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">subsample_ns</span><span class="o">=</span><span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">7500</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">15000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running scvelo with subsample_n=3000.
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "ebc6638539484fb8b4620cf12173d352", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:07:17) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+computing velocities
+    finished (0:00:21) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+Running velovi with subsample_n=7500.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 115/500:  23%|██▎       | 115/500 [02:54&lt;09:44,  1.52s/it, loss=-2.26e+04, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -20756.395. Signaling Trainer to stop.
+Running velovi with subsample_n=5000.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 34/500:   7%|▋         | 33/500 [00:27&lt;06:16,  1.24it/s, loss=-1.64e+04, v_num=1]WARNING: ENSMUSG00000047976 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000047228
+WARNING: ENSMUSG00000030156 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053063 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042638 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030218 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000078810 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000011349 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000049685 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000052974 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000030792
+WARNING: ENSMUSG00000030470 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108313 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000039236 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000109485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025105 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038540 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000030732
+WARNING: ENSMUSG00000073907 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000037060 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000073862 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108856 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000051457 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030789 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030862 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000100717 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038745 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025491 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000060240 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000000244
+WARNING: ENSMUSG00000108888 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108961 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031449 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006570 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000044743 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000031489
+WARNING: ENSMUSG00000031610 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000053886
+WARNING: ENSMUSG00000074240 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031710 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074217 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000098854 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056973 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031760 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074128 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031722 not recoverable due to insufficient samples.
+Epoch 46/500:   9%|▉         | 45/500 [00:36&lt;06:28,  1.17it/s, loss=-1.83e+04, v_num=1]WARNING: ENSMUSG00000025328 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028946 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000012428 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000044716 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105105 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105352 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106136 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105640 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029370 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035187 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029307 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029306 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029304 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000066975 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106708 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000089842 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000087344 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000004814 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042985 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053129 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000002588
+WARNING: skipping bimodality check for ENSMUSG00000019577
+WARNING: ENSMUSG00000029755 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059201 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000084861 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000087613 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000043505 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029831 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000938 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053977 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108371 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059654 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034783 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000008845 not recoverable due to insufficient samples.
+Epoch 61/500:  12%|█▏        | 60/500 [00:49&lt;05:51,  1.25it/s, loss=-1.96e+04, v_num=1]WARNING: ENSMUSG00000074695 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054986 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085035 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000055546 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000020264
+WARNING: ENSMUSG00000085551 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000060180 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097386 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032807 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041287 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085230 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054406 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000082101 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000018698 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000009350 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000072553 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001508 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046719 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056648 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038216 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000075570 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001494 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000018486 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020712 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097117 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020591 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020651 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021032 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021091 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021095 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041347 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002803 not recoverable due to insufficient samples.
+Epoch 67/500:  13%|█▎        | 66/500 [00:54&lt;05:58,  1.21it/s, loss=-2e+04, v_num=1]   WARNING: ENSMUSG00000047562 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031932 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001943 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000051095 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002033 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046480 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059412 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032315 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032346 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000049511 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000044037 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000044534 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025804 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031170 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000095741 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031101 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000060967 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031138 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056380 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000079845 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002007 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000073008 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042386 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000019851 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050473 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000037440 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097742 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000063428
+WARNING: ENSMUSG00000019909 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000009654 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035963 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020125 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050108 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000019936 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000074776
+Epoch 67/500:  13%|█▎        | 66/500 [00:55&lt;05:58,  1.21it/s, loss=-2e+04, v_num=1]WARNING: ENSMUSG00000034362 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000071561 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108763 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000022667
+WARNING: ENSMUSG00000058550 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061100 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047109 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023885 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097566 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000043747
+WARNING: ENSMUSG00000064147 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000094891 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002289 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000037548 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036594 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034923 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000039518
+WARNING: ENSMUSG00000090897 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023968 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000023992
+WARNING: ENSMUSG00000023993 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024164 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024619 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000063796 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024677 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024678 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000055895 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000058624
+WARNING: ENSMUSG00000048572 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042372 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024778 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097558 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074896 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000062488 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024979 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035818 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000090965 not recoverable due to insufficient samples.
+Epoch 71/500:  14%|█▍        | 70/500 [00:57&lt;05:56,  1.21it/s, loss=-2.02e+04, v_num=1]WARNING: ENSMUSG00000032769 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000104072 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000100426 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006542 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000026205
+WARNING: ENSMUSG00000026208 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000043230 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026222 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000034486
+WARNING: ENSMUSG00000026303 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026304 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026308 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034107 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000100182 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059956 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041559 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031506 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026581 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040629 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000015316 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053318 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000066671 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000101746 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000057072
+WARNING: ENSMUSG00000097850 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085257 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026805 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086644 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026971 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000394 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086905 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000075023 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034226 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033498 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074805 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027345 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000084762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000068129 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027611 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000078949 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000087684
+WARNING: ENSMUSG00000104000 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000060913
+WARNING: ENSMUSG00000001865 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000027744
+WARNING: ENSMUSG00000027750 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027833 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028071 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001020 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027913 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000013707
+WARNING: ENSMUSG00000028108 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086557 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027871 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046213 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000019232 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028270 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106052 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028037 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085404 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025418 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034785 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028716 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028713 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050234 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000028786
+WARNING: ENSMUSG00000028778 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036896 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036887 not recoverable due to insufficient samples.
+Epoch 81/500:  16%|█▌        | 80/500 [01:05&lt;05:42,  1.23it/s, loss=-2.06e+04, v_num=1]WARNING: ENSMUSG00000016982 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006179 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042842 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021469 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000049625
+WARNING: ENSMUSG00000074768 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006522 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000060523 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000035932
+WARNING: ENSMUSG00000022220 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000015443 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000091649
+WARNING: ENSMUSG00000021966 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022097 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050505 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000098630 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000071229 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000045281 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000005716 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033006 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000045608 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022991 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023484 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000089671 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023039 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000064232 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061397 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000039209 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000004366 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000056423
+Epoch 151/500:  30%|███       | 151/500 [02:03&lt;04:46,  1.22it/s, loss=-2.19e+04, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -20042.770. Signaling Trainer to stop.
+Running scvelo with subsample_n=15000.
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "a688bd36a8c1444ab08ba82710ca996f", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:37:43) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+computing velocities
+WARNING: ENSMUSG00000049685 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000052974 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000109485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025105 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000051457 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038745 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108961 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031449 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006570 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074240 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074217 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031722 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047562 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031932 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046480 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059412 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032346 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031138 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056380 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000079845 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042386 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050473 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000009654
+WARNING: ENSMUSG00000035963 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020125 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025328 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028946 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105105 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105352 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106136 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035187 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029307 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029304 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042985 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053129 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059201 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000087613 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059654 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034783 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000016982 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006179 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022220 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000071229 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033006 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022991 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023039 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000064232 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061397 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000039209 not recoverable due to insufficient samples.
+    finished (0:02:27) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+Running velovi with subsample_n=10000.
+WARNING: ENSMUSG00000100426 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000043230 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026308 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041559 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031506 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026581 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000040629
+WARNING: ENSMUSG00000053318 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000101746 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097850 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026805 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000394 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086905 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000075023 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074805 not recoverable due to insufficient samples.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 6/500:   1%|          | 5/500 [00:08&lt;13:28,  1.63s/it, loss=-9.75e+03, v_num=1]WARNING: ENSMUSG00000059762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054986 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085035 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097386 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000041287
+WARNING: ENSMUSG00000054406 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000009350 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001508 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056648 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038216 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000001494
+WARNING: ENSMUSG00000018486 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021095 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041347 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002803 not recoverable due to insufficient samples.
+Epoch 61/500:  12%|█▏        | 60/500 [01:38&lt;11:46,  1.61s/it, loss=-2.19e+04, v_num=1]WARNING: ENSMUSG00000071561 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061100 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000094891 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036594 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024619 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024678 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097558 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074896 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000062488 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024979 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000090965 not recoverable due to insufficient samples.
+Epoch 67/500:  13%|█▎        | 66/500 [01:49&lt;11:34,  1.60s/it, loss=-2.23e+04, v_num=1]WARNING: ENSMUSG00000028071 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001020 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085404 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025418 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034785 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028610 not recoverable due to insufficient samples.
+Epoch 117/500:  23%|██▎       | 117/500 [03:11&lt;10:26,  1.64s/it, loss=-2.29e+04, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -21685.555. Signaling Trainer to stop.
+Running scvelo with subsample_n=5000.
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "cb415182661e4322945f369757f7a6ac", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:13:36) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+computing velocities
+    finished (0:00:36) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+Running scvelo with subsample_n=7500.
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "2e018cc9a24a4a1e9ba65e7334338457", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:18:32) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+computing velocities
+    finished (0:00:57) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+Running velovi with subsample_n=1000.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 375/500:  75%|███████▌  | 375/500 [01:13&lt;00:24,  5.12it/s, loss=-1.94e+04, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -15762.534. Signaling Trainer to stop.
+Running velovi with subsample_n=3000.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 162/500:  32%|███▏      | 161/500 [01:32&lt;06:36,  1.17s/it, loss=-2.08e+04, v_num=1]WARNING: ENSMUSG00000074695 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054986 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085035 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000055546 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000020264
+WARNING: ENSMUSG00000097386 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041287 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054406 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000009350 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000072553 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001508 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056648 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038216 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000075570 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001494 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000018486 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020591 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020651 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021032 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000021091
+WARNING: ENSMUSG00000021095 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041347 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002803 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030156 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053063 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000078810
+WARNING: ENSMUSG00000011349 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000049685 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000052974 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030470 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000109485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025105 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038540 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000073907 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000051457 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000030862
+WARNING: ENSMUSG00000038745 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108888 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108961 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031449 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006570 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000044743 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074240 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074217 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000098854 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031722 not recoverable due to insufficient samples.
+Epoch 190/500:  38%|███▊      | 189/500 [01:56&lt;04:40,  1.11it/s, loss=-2.11e+04, v_num=1]WARNING: skipping bimodality check for ENSMUSG00000047228
+WARNING: ENSMUSG00000030156 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053063 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000078810 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000011349 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000049685 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000052974 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030470 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108313 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000039236
+WARNING: ENSMUSG00000109485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025105 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038540 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000073907 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000051457 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030789 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030862 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038745 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108888 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108961 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031449 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006570 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000044743 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074240 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074217 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000098854 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000056973
+WARNING: ENSMUSG00000074128 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031722 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000032769
+WARNING: ENSMUSG00000100426 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006542 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000043230 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026308 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059956 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041559 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031506 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026581 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040629 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053318 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000101746 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097850 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026805 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000086644
+WARNING: ENSMUSG00000000394 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086905 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000075023 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034226 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033498 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074805 not recoverable due to insufficient samples.
+Epoch 194/500:  39%|███▉      | 194/500 [02:01&lt;03:11,  1.60it/s, loss=-2.12e+04, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -19874.062. Signaling Trainer to stop.
+WARNING: ENSMUSG00000071561 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000022667
+WARNING: ENSMUSG00000058550 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061100 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047109 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097566 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000064147 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000094891 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000002289
+WARNING: ENSMUSG00000037548 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036594 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034923 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023968 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023993 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024164 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024619 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024677 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024678 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000055895 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000048572 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097558 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074896 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000062488 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024979 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035818 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000090965 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000016982 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006179 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021469 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006522 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022220 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000015443 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022097 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000098630 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000071229 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033006 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022991 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023039 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000064232 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061397 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000039209 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000004366 not recoverable due to insufficient samples.
+Running scvelo with subsample_n=10000.
+recovering dynamics (using 8/112 cores)
+WARNING: ENSMUSG00000032769 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000104072 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000100426 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006542 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000043230 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000026303
+WARNING: ENSMUSG00000026308 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034107 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059956 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041559 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031506 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026581 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040629 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053318 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000066671 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000101746 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097850 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026805 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086644 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026971 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000394 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086905 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000075023 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034226 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033498 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074805 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027345 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000084762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000071561 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000058550 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061100 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047109 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000064147
+WARNING: ENSMUSG00000094891 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000037548 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036594 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034923 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023968 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023993 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000024164
+WARNING: ENSMUSG00000024619 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024677 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024678 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000055895 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097558 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074896 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000062488 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024979 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035818 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000090965 not recoverable due to insufficient samples.
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "5d6b8032fd9b45d799544450de434fbf", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: ENSMUSG00000025328 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028946 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000012428 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105105 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105352 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106136 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000105640
+WARNING: ENSMUSG00000029370 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035187 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029307 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029306 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029304 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000089842 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000004814 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042985 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053129 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029755 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059201 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000087613 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000043505 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029831 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000938 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053977 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059654 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034783 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000008845 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000078949
+WARNING: ENSMUSG00000104000 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001865 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027833 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028071 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001020 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027871 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046213 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028270 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106052 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085404 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025418 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034785 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050234 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028778 not recoverable due to insufficient samples.
+    finished (0:19:57) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+computing velocities
+    finished (0:01:17) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+Running scvelo with subsample_n=1000.
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "59497346e55b472e86ff29935e3f2e96", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: ENSMUSG00000047562 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031932 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002033 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046480 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059412 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032315 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032346 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000049511 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000044037
+WARNING: ENSMUSG00000025804 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000095741 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031101 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031138 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056380 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000079845 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000002007
+WARNING: ENSMUSG00000073008 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042386 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050473 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000037440 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000019909
+WARNING: ENSMUSG00000009654 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035963 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020125 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000050108
+WARNING: ENSMUSG00000019936 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025328 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028946 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000012428 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105105 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105352 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106136 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035187 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029307 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029306 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029304 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000089842
+WARNING: ENSMUSG00000042985 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053129 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029755 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059201 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000087613 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000043505 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059654 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034783 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030156 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053063 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000011349 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000049685 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000052974 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030470 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000109485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025105 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000038540
+WARNING: ENSMUSG00000073907 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000030762
+WARNING: ENSMUSG00000051457 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038745 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108888 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108961 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031449 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006570 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074240 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074217 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000098854 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031722 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000025902
+WARNING: ENSMUSG00000101476 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032769 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000100053 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000104072 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000100426 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000101895 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000070870 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000044429 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006542 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033227 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026205 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026202 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026208 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000043230 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026222 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026241 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000026247
+WARNING: ENSMUSG00000034486 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026303 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026304 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026308 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034107 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000100182 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059956 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041559 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031506 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041801 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000026413
+WARNING: ENSMUSG00000026357 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042641 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000100627 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026581 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040629 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097045 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000015355
+WARNING: ENSMUSG00000015316 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000007097 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053318 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000066671 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000101746 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026497 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000039377 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000039349
+WARNING: skipping bimodality check for ENSMUSG00000057072
+WARNING: ENSMUSG00000097850 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000016494 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026645 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085257 WARNING: ENSMUSG00000068129 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027611 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000078949
+WARNING: ENSMUSG00000104000 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001865 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027833 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028071 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001020 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027913 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027871 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046213 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000019232 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028270 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106052 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085404 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025418 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034785 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050234 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028778 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036887 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074695 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054986 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085035 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000055546 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097386 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041287 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054406 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000009350 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000072553 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001508 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056648 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038216 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000075570 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001494 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000018486 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020591 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021095 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041347 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002803 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000100426 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000043230 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026308 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059956 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041559 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031506 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026581 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040629 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053318 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000101746 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097850 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026805 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000394 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086905 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000075023 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034226 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074805 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041886 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053101 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000016982 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006179 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021336 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038402 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042842 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000039109
+WARNING: ENSMUSG00000021469 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021478 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000049625 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035493 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021456 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000060969 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074768 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021678 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000052485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000071203 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000089887 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006522 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041707 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021799 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000060523 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035932 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022212 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022220 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000015443 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000091649 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021966 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022097 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033589 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034997 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050505 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000098630 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000071229 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000003882 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022243 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000048230 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000051225 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053469 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000045281 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000005716 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000071715 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000071711
+WARNING: ENSMUSG00000033220 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000018008 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033006 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000489 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000045608 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022991 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023484 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000089671 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023039     finished (0:03:06) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+computing velocities
+    finished (0:00:06) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+Running velovi with subsample_n=15000.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 105/500:  21%|██        | 104/500 [04:20&lt;13:50,  2.10s/it, loss=-2.33e+04, v_num=1]WARNING: ENSMUSG00000016982 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006179 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022220 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022097 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000098630
+WARNING: ENSMUSG00000071229 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033006 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022991 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023039 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000064232 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061397 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000039209 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000069516 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074695 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025432 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040345 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054986 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000058755 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034201 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085035 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046491 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000055546 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020377 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050087 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001053 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020264 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085551 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000060180 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097386 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032807 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041287 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085230 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000005950 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054406 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000017390 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035373 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000082101 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000019122 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000018698 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000009350 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000072553 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001506 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001508 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046719 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056648 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038216 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035831 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000075570 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000004044 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001494 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000018486 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020712 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000001029
+WARNING: ENSMUSG00000020614 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097117 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000039691 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000097580
+WARNING: ENSMUSG00000020591 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020641 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036136 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020651 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000020545
+WARNING: ENSMUSG00000021032 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021886 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000064215 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000079017 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021091 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021095 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041347 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002803 not recoverable due to insufficient samples.
+Epoch 106/500:  21%|██        | 105/500 [04:22&lt;14:04,  2.14s/it, loss=-2.34e+04, v_num=1]WARNING: ENSMUSG00000016982 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006179 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021469 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074768 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006522 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000060523
+WARNING: ENSMUSG00000022220 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000015443 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000091649
+WARNING: ENSMUSG00000022097 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000098630 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000071229 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000005716 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033006 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022991 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023039 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000064232 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061397 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000039209 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000004366 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047562 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031932 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046480 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059412 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032315 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032346 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000049511 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000044037
+WARNING: ENSMUSG00000031138 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056380 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000079845 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000073008
+WARNING: ENSMUSG00000042386 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050473 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000037440 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000009654 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035963 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020125 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000050108
+WARNING: ENSMUSG00000019936 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001865 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027833 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028071 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001020 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000027871
+WARNING: ENSMUSG00000028270 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085404 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025418 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034785 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028610 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000050234
+WARNING: ENSMUSG00000028778 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074735 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000079008 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000068129 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027470 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027611 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000078949 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085649 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000087684 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000039155 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000104000 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000104015 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000060913 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001865 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074604 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027744 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105168 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106270 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027750 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027833 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000048304
+WARNING: ENSMUSG00000028071 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000004892 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001020 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027913 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000013707 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028108 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086557 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074388 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027871 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086564 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002228 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074342 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040724 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046213 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000019232 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028270 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106052 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028037 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028036 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000028174
+WARNING: skipping bimodality check for ENSMUSG00000028298
+WARNING: ENSMUSG00000087137 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036078 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000051517 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085404 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000051675 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025418 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034785 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028716 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000086896
+WARNING: ENSMUSG00000028713 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050234 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028786 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028778 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028581 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036905 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036896 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036887 not recoverable due to insufficient samples.
+Epoch 106/500:  21%|██        | 106/500 [04:25&lt;16:25,  2.50s/it, loss=-2.34e+04, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -22210.152. Signaling Trainer to stop.
+not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036949 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000044628 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026956 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026805 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000052951 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026882 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086644 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086523 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026832 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026971 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000394 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027077 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086905 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027221 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000075023 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000016458 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000068614 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034226 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027313 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033498 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000027360
+WARNING: ENSMUSG00000027398 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074805 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027345 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000027261 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000084762 not recoverable due to insufficient samples.
+not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000064232 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061397 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000022516
+WARNING: ENSMUSG00000039457 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000051669 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000039209 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022501 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022738 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000004366 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056423 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047953 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047562 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031932 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046480 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059412 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032346 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031138 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056380 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000079845 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042386 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050473 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000009654
+WARNING: ENSMUSG00000035963 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020125 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097312 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025888 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033538 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047562 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031932 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006235 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000098590 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032125 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001943 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000051095 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002033 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046480 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059412 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032911 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032315 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000032204
+WARNING: ENSMUSG00000032346 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000049511 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032265 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000099974 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000089929
+WARNING: ENSMUSG00000032356 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000100123 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032491 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000044037 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032530 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000044534 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025804 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000031147
+WARNING: ENSMUSG00000031165 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031170 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000051827 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000079638 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000095741 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031101 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000060967 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031125 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031138 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000096946 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056380 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000079845 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000031375
+WARNING: ENSMUSG00000002007 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025058 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031297 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000052821
+WARNING: ENSMUSG00000073010 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000054293
+WARNING: ENSMUSG00000073008 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000033436
+WARNING: ENSMUSG00000042386 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000067276 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025333 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000019851 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050473 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000037440 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097742 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000063428 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000019909 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000009654 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020096 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020178 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000903 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001155 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000290 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035963 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020310 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020125 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050108 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020051 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020062 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047638 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000019936 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074776 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000056912
+WARNING: skipping bimodality check for ENSMUSG00000019890
+WARNING: ENSMUSG00000036602 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025328 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028946 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105105 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105352 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106136 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035187 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029307 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029306 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029304 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042985 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053129 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029755 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059201 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000087613 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000043505 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059654 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034783 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025328 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000087045 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033770 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000087094 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000028946 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042116 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029070 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000073234 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000012428 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000095550 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002633 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025746 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000067642 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029163 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000044716 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029092 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105105 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105352 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000068082 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106136 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000072845 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054537 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029268 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106677 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029272 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105640 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029370 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029373 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029378 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106357 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105218 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035187 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029307 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029306 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029304 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106483 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029275 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000066975 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054675 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029564 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000041548
+WARNING: ENSMUSG00000106708 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000090086 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000089842 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000087344 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000004814 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042985 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000036586
+WARNING: ENSMUSG00000093910 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029641 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053129 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002588 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000019577 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029755 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059201 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000084861 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000087613 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029915 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054435 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000043505 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029831 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000938 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000004655 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000037984 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053977 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108371 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059654 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034783 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000063415 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000015053 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047203 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000440 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025701 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030109 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030116 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030148 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000095486 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000008845 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000071561 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000058550 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061100 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047109 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000094891 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000037548 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036594 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034923 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023968 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023993 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024619 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024677 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024678 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000055895
+WARNING: ENSMUSG00000097558 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074896 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000062488 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024979 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000035818
+WARNING: ENSMUSG00000090965 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047976 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000030345
+WARNING: skipping bimodality check for ENSMUSG00000097525
+WARNING: ENSMUSG00000047228 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030156 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053063 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030159 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033082 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042638 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030218 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000087277 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000048776 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000078810 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000045587 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000011349 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000003379 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000049685 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000052974 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000097809
+WARNING: ENSMUSG00000062132 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074199 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000009687
+WARNING: ENSMUSG00000004609 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000064023 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030792 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000009487 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030470 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108313 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000039236 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030607 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000109485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025105 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038540 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030732 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030725 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000032725 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000070421 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000073907 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000037060 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000030787
+WARNING: ENSMUSG00000073862 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030666 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108856 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000051457 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030789 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000099422 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000030862 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000100717 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038745 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025491 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000025499
+WARNING: ENSMUSG00000060240 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000244 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000109009 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108888 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108961 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000109508 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000096938 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000010435 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031449 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006570 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000044743 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031549 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000037406 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031489 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025044 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053886 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046718 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074240 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031710 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074217 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000098854 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056973 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031760 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074128 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033249 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000031891
+WARNING: ENSMUSG00000044287 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031722 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074695 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054986 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085035 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097386 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041287 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054406 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000009350 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000072553 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001508 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056648 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038216 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000075570 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000001494
+WARNING: ENSMUSG00000018486 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020591 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021095 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041347 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002803 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086146 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034362 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000071561 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108763 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022667 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022659 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000058550 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061100 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047109 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040899 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023828 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023885 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097566 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000043747 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086719 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000048992 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000062753 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000064147 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024029 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000052142 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000094891 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002289 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000037548 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036594 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034923 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000039518 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000090897 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023968 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000067144 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047150 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023992 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023993 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000010592 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024164 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040505 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000036557 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061808 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000073599 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024440 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024503 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024619 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000045903 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024910 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000063796 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024672 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024675 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000079419
+WARNING: ENSMUSG00000024677 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024678 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024679 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000055895 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000058624 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000048572 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042372 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024778 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097558 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074896 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000062488 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074852 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024979 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035818 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000090965 not recoverable due to insufficient samples.
+Running scvelo with subsample_n=20000.
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "d521349b497d4fa0b37d1ac404653c3d", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:39:13) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+computing velocities
+WARNING: ENSMUSG00000049685 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000052974 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025105 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000051457 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000038745 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000108961 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031449 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006570 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074240 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074217 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031722 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000047562 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000046480 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059412 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031138 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000056380 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000079845 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042386 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000050473 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000009654
+WARNING: ENSMUSG00000035963 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000020125 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000100426 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026308 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041559 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000031506 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000026581 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053318 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000101746 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097850 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000000394 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000086905 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000075023 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074805 not recoverable due to insufficient samples.
+    finished (0:02:45) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+Running velovi with subsample_n=20000.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/500:   0%|          | 0/500 [00:00&lt;?, ?it/s]WARNING: ENSMUSG00000028071 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001020 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085404 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000025418 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034785 not recoverable due to insufficient samples.
+Epoch 2/500:   0%|          | 1/500 [00:06&lt;54:42,  6.58s/it, loss=-7.02e+03, v_num=1]WARNING: ENSMUSG00000028946 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105105 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000105352 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000106136 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000035187 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029307 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000029304 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042985 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000053129 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059201 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000059654 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000034783 not recoverable due to insufficient samples.
+Epoch 3/500:   0%|          | 2/500 [00:09&lt;37:28,  4.51s/it, loss=-9.09e+03, v_num=1]WARNING: ENSMUSG00000016982 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000006179 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000042485 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022220 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000071229 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000033006 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000022991 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000023039 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000064232 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061397 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000039209 not recoverable due to insufficient samples.
+Epoch 14/500:   3%|▎         | 13/500 [00:41&lt;23:21,  2.88s/it, loss=-2.04e+04, v_num=1]WARNING: ENSMUSG00000059762 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054986 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000085035 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000040610 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000097386 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000054406 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000009350 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000001508 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000056648
+WARNING: ENSMUSG00000038216 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000001494
+WARNING: ENSMUSG00000018486 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000021095 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000041347 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000002803 not recoverable due to insufficient samples.
+Epoch 27/500:   5%|▌         | 26/500 [01:18&lt;22:38,  2.87s/it, loss=-2.23e+04, v_num=1]WARNING: ENSMUSG00000071561 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000061100 not recoverable due to insufficient samples.
+WARNING: skipping bimodality check for ENSMUSG00000094891
+WARNING: ENSMUSG00000036594 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024619 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024678 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000074896 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000062488 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000024979 not recoverable due to insufficient samples.
+WARNING: ENSMUSG00000090965 not recoverable due to insufficient samples.
+Epoch 98/500:  20%|█▉        | 98/500 [04:45&lt;19:31,  2.91s/it, loss=-2.32e+04, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -22413.461. Signaling Trainer to stop.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plotting">
+<h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">runtime_result_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;runtime_results/**.npy&quot;</span><span class="p">)</span>
+<span class="n">res_df_rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">res_file</span> <span class="ow">in</span> <span class="n">runtime_result_files</span><span class="p">:</span>
+    <span class="n">res_df_row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">res_file</span><span class="p">)</span>
+    <span class="n">res_df_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res_df_row</span><span class="p">)</span>
+<span class="n">res_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res_df_rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_obs&#39;</span><span class="p">,</span> <span class="s1">&#39;runtime&#39;</span><span class="p">,</span> <span class="s1">&#39;method&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_df</span><span class="p">[</span><span class="s1">&#39;n_obs_thousand&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res_df</span><span class="p">[</span><span class="s1">&#39;n_obs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">//</span> <span class="mf">1e4</span>
+<span class="n">res_df</span><span class="p">[</span><span class="s1">&#39;runtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res_df</span><span class="p">[</span><span class="s1">&#39;runtime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">with</span> <span class="n">mplscience</span><span class="o">.</span><span class="n">style_context</span><span class="p">():</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;n_obs_thousand&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;runtime&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;method&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">res_df</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Cells (thousands)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Runtime (sec)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1e4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Runtime with 5000 genes&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="n">SAVE_FIGURES</span><span class="p">:</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
+        <span class="n">FIG_DIR</span> <span class="o">/</span> <span class="s1">&#39;comparison&#39;</span> <span class="o">/</span> <span class="s1">&#39;runtime.svg&#39;</span><span class="p">,</span>
+        <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;svg&quot;</span><span class="p">,</span>
+        <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/runtime_22_0.png" src="../_images/runtime_22_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "velovi-py39"
+        },
+        kernelOptions: {
+            kernelName: "velovi-py39",
+            path: "./estimation_comparison"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'velovi-py39'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="simulated.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Inference comparison on simulated data</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../time_dependent_rates/mse_comparison.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">MSE with time dependent transcription rate</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By VeloVI Team<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

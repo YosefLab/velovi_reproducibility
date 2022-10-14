@@ -1,0 +1,2773 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Inference comparison on simulated data &#8212; VeloVI Reproducibility</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Runtime comparison" href="runtime.html" />
+    <link rel="prev" title="Comparison of velocities between EM and VI model" href="pancreas.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">VeloVI Reproducibility</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Intro
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Estimation Comparison
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="model_fit.html">
+   Model fit comparsion - MSE, velocity confidence, correlation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="pancreas.html">
+   Comparison of velocities between EM and VI model
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Inference comparison on simulated data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="runtime.html">
+   Runtime comparison
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Time Dependent Rates
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../time_dependent_rates/mse_comparison.html">
+   MSE with time dependent transcription rate
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../time_dependent_rates/pancreas.html">
+   MSE with time dependent transcription rate
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Permutation Score
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../permutation_score/pfc.html">
+   Permutation score analysis - Pre-frontal cortex
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../permutation_score/dataset_comparison.html">
+   Permutation score - Dataset comparison
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../permutation_score/old_brain.html">
+   Imports and helper functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../permutation_score/spermatogenesis.html">
+   Permutation score analysis - Spermatogenesis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../permutation_score/pancreas.html">
+   Permutation score analysis - Pancreas
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Uncertainty
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../uncertainty/pancreas.html">
+   Uncertainty analysis - Pancreas
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Case Studies
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../case_studies/dentategyrus.html">
+   Uncertainty analysis - Dentate gyrus
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../case_studies/pbmc.html">
+   PBMC
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Runtime Analysis
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../runtime_analysis/velo_runtime_analysis.html">
+   VeloVI Runtime Analysis
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Preprocessing Stability
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../preprocessing_stability/dentategyrus/README.html">
+   Preprocessing analysis for RNA velocity in dentate gyurs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/adata_generation.html">
+     Data generation for RNA velocity analysis in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_decoy_gtr_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_decoy_gtr_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_gtr_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_gtr_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_decoy_gtr_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_decoy_gtr_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_gtr_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_gtr_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_spliced_unspliced_gtr_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_spliced_unspliced_gtr_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/correlation_analysis.html">
+     Correlation analysis across preprocessing tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_exclude_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_exclude_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_include_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_include_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_exclude_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_exclude_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_include_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_include_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_subtr_em_ss.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_subtr_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_vi.html">
+     RNA velocity in dentate gyrus
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../preprocessing_stability/old_brain/README.html">
+   Preprocessing analysis for RNA velocity in mouse brain
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/adata_generation.html">
+     Data generation for RNA velocity analysis in mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_decoy_gtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_decoy_gtr_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_gtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_gtr_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_decoy_gtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_decoy_gtr_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_gtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_gtr_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_spliced_unspliced_gtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_spliced_unspliced_gtr_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/correlation_analysis.html">
+     Correlation analysis across preprocessing tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/dropest_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/dropest_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_exclude_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_exclude_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_include_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_include_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_exclude_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_exclude_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_include_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_include_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_subtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_subtr_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/velocyto_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/old_brain/velocyto_vi.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../preprocessing_stability/pancreas/README.html">
+   Preprocessing analysis for RNA velocity in panreatic endocrinogenesis
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/adata_generation.html">
+     Data generation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_decoy_gtr_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_decoy_gtr_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_gtr_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_gtr_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_decoy_gtr_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_decoy_gtr_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_gtr_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_gtr_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_spliced_unspliced_gtr_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_spliced_unspliced_gtr_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/correlation_analysis.html">
+     Correlation analysis across preprocessing tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/dropest_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/dropest_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_exclude_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_exclude_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_include_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_include_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_exclude_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_exclude_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_include_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_include_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_subtr_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_subtr_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/velocyto_em_ss.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pancreas/velocyto_vi.html">
+     RNA velocity in pancreatic endocrinogenesis
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../preprocessing_stability/pfc/README.html">
+   Preprocessing analysis for RNA velocity in the prefrontal coretex
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/adata_generation.html">
+     Data generation for RNA velocity analysis in pre-frontal cortex
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_decoy_gtr_em_ss.html">
+     RNA velocity in adult mouse brain
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_decoy_gtr_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_gtr_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_gtr_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_decoy_gtr_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_decoy_gtr_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_gtr_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_gtr_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_spliced_unspliced_gtr_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_spliced_unspliced_gtr_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/correlation_analysis.html">
+     Correlation analysis across preprocessing tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/dropest_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/dropest_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_exclude_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_exclude_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_include.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_include_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_exclude_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_exclude_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_include_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_include_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/starsolo_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/starsolo_subtr_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/starsolo_subtr_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/starsolo_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/velocyto_em_ss.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/pfc/velocyto_vi.html">
+     RNA velocity in PFC
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../preprocessing_stability/spermatogenesis/README.html">
+   Preprocessing analysis for RNA velocity in spermatogenesis
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/adata_generation.html">
+     Data generation for RNA velocity analysis in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_decoy_gtr_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_decoy_gtr_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_gtr_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_gtr_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_decoy_gtr_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_decoy_gtr_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_gtr_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_gtr_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_spliced_unspliced_gtr_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_spliced_unspliced_gtr_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/correlation_analysis.html">
+     Correlation analysis across preprocessing tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/dropest_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/dropest_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_exclude_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_exclude_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_include_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_include_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_exclude_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_exclude_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_include_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_include_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_subtr_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_subtr_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/velocyto_em_ss.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/velocyto_vi.html">
+     RNA velocity in spermatogenesis
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/YosefLab/velovi_reproducibility/master?urlpath=tree/estimation_comparison/simulated.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/YosefLab/velovi_reproducibility"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/estimation_comparison/simulated.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#library-imports">
+   Library imports
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#general-settings">
+   General settings
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#function-definitions">
+   Function definitions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#correlation-analysis">
+   Correlation analysis
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Inference comparison on simulated data</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#library-imports">
+   Library imports
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#general-settings">
+   General settings
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#function-definitions">
+   Function definitions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#correlation-analysis">
+   Correlation analysis
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="inference-comparison-on-simulated-data">
+<h1>Inference comparison on simulated data<a class="headerlink" href="#inference-comparison-on-simulated-data" title="Permalink to this headline">#</a></h1>
+<section id="library-imports">
+<h2>Library imports<a class="headerlink" href="#library-imports" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">pearsonr</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">mplscience</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">import</span> <span class="nn">scvelo</span> <span class="k">as</span> <span class="nn">scv</span>
+<span class="kn">import</span> <span class="nn">scvi</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;../..&quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">paths</span> <span class="kn">import</span> <span class="n">FIG_DIR</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Global seed set to 0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="general-settings">
+<h2>General settings<a class="headerlink" href="#general-settings" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scvi</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">dl_pin_memory_gpu_training</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">reset_defaults</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">reset_orig</span><span class="p">()</span>
+<span class="n">scv</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="s1">&#39;scvelo&#39;</span><span class="p">,</span> <span class="n">dpi_save</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color_map</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SAVE_FIGURES</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">SAVE_FIGURES</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">FIG_DIR</span> <span class="o">/</span> <span class="s1">&#39;comparison&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="function-definitions">
+<h2>Function definitions<a class="headerlink" href="#function-definitions" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_adata</span><span class="p">(</span><span class="n">n_obs</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">n_vars</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">R</span>
+
+    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_vars</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>  <span class="c1"># multivariate log-normal</span>
+    <span class="n">beta</span> <span class="o">/=</span> <span class="mi">3</span>
+    <span class="n">gamma</span> <span class="o">/=</span> <span class="mi">3</span>
+
+    <span class="c1"># remove outliers</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">99</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">beta</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">99</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">gamma</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="mi">99</span><span class="p">))</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">n_vars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+
+    <span class="n">switches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_vars</span><span class="p">)</span>
+
+    <span class="n">adata</span> <span class="o">=</span> <span class="n">scv</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">simulation</span><span class="p">(</span>
+        <span class="n">n_obs</span><span class="o">=</span><span class="n">n_obs</span><span class="p">,</span>
+        <span class="n">t_max</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">n_vars</span><span class="o">=</span><span class="n">n_vars</span><span class="p">,</span>
+        <span class="n">switches</span><span class="o">=</span><span class="n">switches</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+        <span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">,</span>
+        <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span>
+        <span class="n">noise_level</span><span class="o">=</span><span class="mf">.8</span>
+    <span class="p">)</span>
+
+    <span class="n">scv</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+    <span class="n">scv</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">velocity</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;steady_state&#39;</span><span class="p">,</span> <span class="n">use_raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit_scvelo</span><span class="p">(</span><span class="n">adata</span><span class="p">):</span>
+    <span class="n">scv</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">recover_dynamics</span><span class="p">(</span>
+        <span class="n">adata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="p">,</span> <span class="n">use_raw</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">8</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit_velovi</span><span class="p">(</span><span class="n">bdata</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">velovi</span> <span class="kn">import</span> <span class="n">VELOVI</span>
+
+    <span class="n">VELOVI</span><span class="o">.</span><span class="n">setup_anndata</span><span class="p">(</span><span class="n">bdata</span><span class="p">,</span> <span class="n">spliced_layer</span><span class="o">=</span><span class="s2">&quot;Ms&quot;</span><span class="p">,</span> <span class="n">unspliced_layer</span><span class="o">=</span><span class="s2">&quot;Mu&quot;</span><span class="p">)</span>
+
+    <span class="n">vae</span> <span class="o">=</span> <span class="n">VELOVI</span><span class="p">(</span><span class="n">bdata</span><span class="p">)</span>
+    <span class="n">vae</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+    <span class="n">latent_time</span> <span class="o">=</span> <span class="n">vae</span><span class="o">.</span><span class="n">get_latent_time</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">latent_time</span>
+    <span class="n">scaling</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">/</span> <span class="n">t</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;fit_alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vae</span><span class="o">.</span><span class="n">get_rates</span><span class="p">()[</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">scaling</span>
+    <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;fit_beta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vae</span><span class="o">.</span><span class="n">get_rates</span><span class="p">()[</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">scaling</span>
+    <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;fit_gamma&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vae</span><span class="o">.</span><span class="n">get_rates</span><span class="p">()[</span><span class="s2">&quot;gamma&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">scaling</span>
+    <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;fit_t_&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">softplus</span><span class="p">(</span><span class="n">vae</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">switch_time_unconstr</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="p">)</span> <span class="o">*</span> <span class="n">scaling</span>
+    <span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;fit_t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latent_time</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">scaling</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;fit_scaling&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="k">return</span> <span class="n">vae</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="correlation-analysis">
+<h2>Correlation analysis<a class="headerlink" href="#correlation-analysis" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;correlation&#39;</span><span class="p">,</span> <span class="s1">&#39;method&#39;</span><span class="p">,</span> <span class="s1">&#39;n_obs&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">])</span>
+
+<span class="n">adatas</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">bdatas</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.05</span><span class="p">])</span>
+
+<span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.2</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">.8</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.8</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])</span>
+
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.4</span><span class="p">,</span> <span class="mf">.4</span><span class="p">])[:,</span> <span class="kc">None</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">n_obs</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">4000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">run_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">adata</span> <span class="o">=</span> <span class="n">get_adata</span><span class="p">(</span><span class="n">n_obs</span><span class="o">=</span><span class="n">n_obs</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="n">R</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">C</span><span class="p">)</span>
+
+        <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;true_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">true_gamma</span> <span class="o">/</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">true_beta</span><span class="p">)</span>
+
+        <span class="c1"># Steady-state model</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;steady_state_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;velocity_gamma&#39;</span><span class="p">]</span>
+        <span class="n">corr</span> <span class="o">=</span> <span class="n">pearsonr</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;true_ratio&#39;</span><span class="p">],</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;steady_state_ratio&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">correlation_df</span> <span class="o">=</span> <span class="n">correlation_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span><span class="s1">&#39;correlation&#39;</span><span class="p">:</span> <span class="n">corr</span><span class="p">,</span> <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;Steady-state&#39;</span><span class="p">,</span> <span class="s1">&#39;n_obs&#39;</span><span class="p">:</span> <span class="n">n_obs</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="n">run_id</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+
+        <span class="c1"># EM model</span>
+        <span class="n">scv</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">recover_dynamics</span><span class="p">(</span>
+            <span class="n">adata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="p">,</span> <span class="n">use_raw</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">8</span>
+        <span class="p">)</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;em_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;fit_gamma&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;fit_beta&#39;</span><span class="p">]</span>
+        <span class="n">corr</span> <span class="o">=</span> <span class="n">pearsonr</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;true_ratio&#39;</span><span class="p">],</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;em_ratio&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">correlation_df</span> <span class="o">=</span> <span class="n">correlation_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span><span class="s1">&#39;correlation&#39;</span><span class="p">:</span> <span class="n">corr</span><span class="p">,</span> <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;EM&#39;</span><span class="p">,</span> <span class="s1">&#39;n_obs&#39;</span><span class="p">:</span> <span class="n">n_obs</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="n">run_id</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        
+        
+        <span class="n">adatas</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">n_obs</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">run_id</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span>
+
+        <span class="c1"># VI model</span>
+        <span class="n">bdata</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;Mu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;unspliced&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;Ms&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;spliced&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        scaler = MinMaxScaler()</span>
+<span class="sd">        bdata.layers[&quot;Ms&quot;] = scaler.fit_transform(bdata.layers[&quot;spliced&quot;])</span>
+
+<span class="sd">        scaler = MinMaxScaler()</span>
+<span class="sd">        bdata.layers[&quot;Mu&quot;] = scaler.fit_transform(bdata.layers[&quot;unspliced&quot;])</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">fit_velovi</span><span class="p">(</span><span class="n">bdata</span><span class="p">)</span>
+        <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;vi_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;fit_gamma&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;fit_beta&#39;</span><span class="p">]</span>
+        <span class="n">corr</span> <span class="o">=</span> <span class="n">pearsonr</span><span class="p">(</span><span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;true_ratio&#39;</span><span class="p">],</span> <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;vi_ratio&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">correlation_df</span> <span class="o">=</span> <span class="n">correlation_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span><span class="s1">&#39;correlation&#39;</span><span class="p">:</span> <span class="n">corr</span><span class="p">,</span> <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;VI&#39;</span><span class="p">,</span> <span class="s1">&#39;n_obs&#39;</span><span class="p">:</span> <span class="n">n_obs</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="n">run_id</span><span class="p">},</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="n">bdatas</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">n_obs</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">run_id</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bdata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>computing neighbors
+    finished (0:00:07) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "e9c4b68934e64e62a41a4e5282f554ea", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:41) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/icb/philipp.weiler/miniconda3/envs/velovi-py39/lib/python3.9/site-packages/torch/distributed/_sharded_tensor/__init__.py:8: DeprecationWarning: torch.distributed._sharded_tensor will be deprecated, use torch.distributed._shard.sharded_tensor instead
+  warnings.warn(
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 470/500:  94%|█████████▍| 470/500 [01:07&lt;00:04,  6.98it/s, loss=-1.27e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1265.620. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "9a2a78e596a546c1abbd40d8289b9940", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:34) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+Epoch 500/500: 100%|██████████| 500/500 [01:04&lt;00:00,  7.75it/s, loss=-1.28e+03, v_num=1]
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "86eada796dfd402eb13397ae5d1f7797", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:35) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+Epoch 500/500: 100%|██████████| 500/500 [01:03&lt;00:00,  7.90it/s, loss=-1.22e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1229.235. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "4dbcea92abd749daa16988833b6bfd60", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:35) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 500/500: 100%|██████████| 500/500 [01:09&lt;00:00,  7.24it/s, loss=-1.26e+03, v_num=1]
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "80668251bfae4903866f920618446bd6", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:34) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+Epoch 386/500:  77%|███████▋  | 386/500 [00:50&lt;00:14,  7.66it/s, loss=-1.21e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1207.059. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "10434c7e27bb497083c0cb029cf60a96", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:34) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+Epoch 420/500:  84%|████████▍ | 420/500 [00:53&lt;00:10,  7.78it/s, loss=-1.22e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1221.485. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "3a69bf7369b0492383f0bd9125596d6c", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:34) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 448/500:  90%|████████▉ | 448/500 [00:59&lt;00:06,  7.51it/s, loss=-1.24e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1232.561. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "beeb4ef977f9439186bcc4da72dfa792", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:34) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 480/500:  96%|█████████▌| 480/500 [01:01&lt;00:02,  7.80it/s, loss=-1.23e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1230.982. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "06b2afe0f54d44ffb6dc3fbd1ca35c97", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:37) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+Epoch 500/500: 100%|██████████| 500/500 [01:01&lt;00:00,  8.09it/s, loss=-1.23e+03, v_num=1]
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "ecde4dac872d4f3b9939cebea742966f", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:33) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+Epoch 462/500:  92%|█████████▏| 462/500 [01:00&lt;00:04,  7.67it/s, loss=-1.23e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1229.542. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "bf502138660f42e393aad57f3401eff3", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:41) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 316/500:  63%|██████▎   | 316/500 [01:16&lt;00:44,  4.15it/s, loss=-1.2e+03, v_num=1] 
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1303.267. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "75ceaa6d58f44f30902dc622615ff461", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:41) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 500/500: 100%|██████████| 500/500 [01:54&lt;00:00,  4.37it/s, loss=-1.28e+03, v_num=1]
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "8860f04d16444a40a5c64276f6520011", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:40) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 376/500:  75%|███████▌  | 376/500 [01:24&lt;00:27,  4.43it/s, loss=-1.22e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1309.065. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "a0fb05c01638424ba58ca956acd2dc68", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:44) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 395/500:  79%|███████▉  | 395/500 [01:22&lt;00:21,  4.78it/s, loss=-1.26e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1314.173. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "83bff9f1e7794ad1933d135aacf0e906", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:42) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 461/500:  92%|█████████▏| 461/500 [01:39&lt;00:08,  4.65it/s, loss=-1.2e+03, v_num=1] 
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1334.286. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "3e452122e94c4730837f10a23126be20", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:40) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 312/500:  62%|██████▏   | 312/500 [01:05&lt;00:39,  4.75it/s, loss=-1.23e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1280.445. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "b4015d7bfbb448f698b511782d56dc3c", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:40) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 500/500: 100%|██████████| 500/500 [01:46&lt;00:00,  4.68it/s, loss=-1.26e+03, v_num=1]
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "a6cfe1bc4a4741e9b999f40083f8dd65", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:38) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 335/500:  67%|██████▋   | 335/500 [01:13&lt;00:36,  4.57it/s, loss=-1.24e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1300.102. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "11863acc752444458bc80ccc67f20f2d", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:40) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 500/500: 100%|██████████| 500/500 [01:52&lt;00:00,  4.45it/s, loss=-1.3e+03, v_num=1] 
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "4a55d4db5184452aa3975fa82f676f06", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:41) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 291/500:  58%|█████▊    | 291/500 [01:06&lt;00:48,  4.35it/s, loss=-1.14e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1284.527. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "9b692cd3574e48809086087979740ec1", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:47) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 432/500:  86%|████████▋ | 432/500 [02:18&lt;00:21,  3.12it/s, loss=-1.34e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1306.869. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "f9bbff453f524fa3b3814b65e01b442f", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:48) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 500/500: 100%|██████████| 500/500 [02:40&lt;00:00,  3.11it/s, loss=-1.36e+03, v_num=1]
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "a0dcd43995044713bd0ed7ef66427e4f", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:47) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 298/500:  60%|█████▉    | 298/500 [01:32&lt;01:02,  3.21it/s, loss=-1.34e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1303.765. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "c30d34eba2a84328b64f28535b51d591", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:53) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 398/500:  80%|███████▉  | 398/500 [02:24&lt;00:37,  2.75it/s, loss=-1.37e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1335.884. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "cc54d30d868c40f2bd61d51d5ce8042f", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:54) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 488/500:  98%|█████████▊| 488/500 [03:43&lt;00:05,  2.18it/s, loss=-1.36e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1327.219. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "6eb8512696d64cadb426abb91615376e", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:52) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 406/500:  81%|████████  | 406/500 [02:07&lt;00:29,  3.17it/s, loss=-1.36e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1319.682. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "2cbb8756313a4efa9898536cbc113c69", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:46) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 385/500:  77%|███████▋  | 385/500 [02:07&lt;00:38,  3.01it/s, loss=-1.37e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1329.857. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "3087fef6697f43d480a096334643453e", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:48) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 409/500:  82%|████████▏ | 409/500 [02:07&lt;00:28,  3.21it/s, loss=-1.37e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1319.960. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "88d5b5ef295548b796d53e96d53c2e61", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:50) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 381/500:  76%|███████▌  | 381/500 [02:04&lt;00:38,  3.07it/s, loss=-1.35e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1317.719. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "87c0e475d67a4199b4ea5aa07c90ac77", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:53) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 422/500:  84%|████████▍ | 422/500 [03:10&lt;00:35,  2.22it/s, loss=-1.37e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1338.951. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "f27d7e55e5ee4a23812bbd020d2f6674", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:01:03) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 337/500:  67%|██████▋   | 337/500 [02:50&lt;01:22,  1.97it/s, loss=-1.35e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1357.119. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "71f3c280c2df41acb698d76240119c04", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:55) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 420/500:  84%|████████▍ | 420/500 [03:00&lt;00:34,  2.33it/s, loss=-1.37e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1381.432. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "e5b17619671c4678a831b24995976cda", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:57) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 436/500:  87%|████████▋ | 436/500 [03:02&lt;00:26,  2.39it/s, loss=-1.37e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1367.330. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "58a19e64549641a7adad822e43d96585", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:55) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 469/500:  94%|█████████▍| 469/500 [03:10&lt;00:12,  2.47it/s, loss=-1.36e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1380.304. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "30a77748fdba409db4e28cd4531964f9", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:54) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 240/500:  48%|████▊     | 240/500 [01:37&lt;01:45,  2.47it/s, loss=-1.35e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1345.444. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "3ad8ff0538064394861d37134555722e", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:59) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 290/500:  58%|█████▊    | 290/500 [03:47&lt;02:45,  1.27it/s, loss=-1.34e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1355.669. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:02) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "db3cce551df545e8af0510c80859bdc7", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:02:07) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 323/500:  65%|██████▍   | 323/500 [03:12&lt;01:45,  1.68it/s, loss=-1.36e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1351.550. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "03a7b3ce818f4bc3af95f12abd7e6c45", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:01:13) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 397/500:  79%|███████▉  | 397/500 [03:52&lt;01:00,  1.71it/s, loss=-1.37e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1377.976. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:01) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "845f098faddf4db7865e6932659c34b8", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:02:05) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 248/500:  50%|████▉     | 248/500 [03:46&lt;03:49,  1.10it/s, loss=-1.35e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1346.314. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:01) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "1f75ba0b4e9d4589ae47edad30c4945e", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:02:01) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 267/500:  53%|█████▎    | 267/500 [03:50&lt;03:21,  1.16it/s, loss=-1.33e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1345.556. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:02) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:01) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "8c0389d7931940f58580481077aadb88", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:02:19) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 350/500:  70%|███████   | 350/500 [06:13&lt;02:40,  1.07s/it, loss=-1.38e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1410.588. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:02) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:01) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "73dd896e958d4ac1a3b517f951b7900a", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:02:52) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 220/500:  44%|████▍     | 220/500 [03:49&lt;04:52,  1.04s/it, loss=-1.37e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1396.596. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:03) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:01) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "a6e7062c64c943e3b2ba56d0b701f8f0", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:02:16) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 245/500:  49%|████▉     | 245/500 [03:25&lt;03:34,  1.19it/s, loss=-1.37e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1406.321. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:01) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "8668ca9d5ddd43f69f494c3fa840a9db", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:01:20) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 251/500:  50%|█████     | 251/500 [01:57&lt;01:56,  2.14it/s, loss=-1.38e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1410.348. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "dca75a6737284d248c68d557b57544a7", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:01:10) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 330/500:  66%|██████▌   | 330/500 [03:43&lt;01:55,  1.48it/s, loss=-1.38e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1417.353. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:02) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:01) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "f1ce998a769945f892940450b237d2c2", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:02:12) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 414/500:  83%|████████▎ | 414/500 [07:38&lt;01:35,  1.11s/it, loss=-1.38e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1423.826. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:02) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:01) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "5140e91c273540b7b7cf62d784a8bd63", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:02:31) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 406/500:  81%|████████  | 406/500 [05:44&lt;01:19,  1.18it/s, loss=-1.38e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1421.526. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:02) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:01) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "2e67c059e7424853ba83b8227012f2be", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:02:47) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 295/500:  59%|█████▉    | 295/500 [05:20&lt;03:42,  1.09s/it, loss=-1.39e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1415.200. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:02) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:01) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "83ae3634583f4ff8a08d49f677f8a3ed", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:02:47) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 459/500:  92%|█████████▏| 459/500 [05:04&lt;00:27,  1.51it/s, loss=-1.39e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1427.969. Signaling Trainer to stop.
+computing neighbors
+    finished (0:00:00) --&gt; added 
+    &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+recovering dynamics (using 8/112 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "4dd51d452eec4faf9b1e2a7134475470", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:01:25) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 338/500:  68%|██████▊   | 338/500 [05:42&lt;02:44,  1.01s/it, loss=-1.38e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1418.913. Signaling Trainer to stop.
+</pre></div>
+</div>
+<img alt="../_images/simulated_12_197.png" src="../_images/simulated_12_197.png" />
+<img alt="../_images/simulated_12_198.png" src="../_images/simulated_12_198.png" />
+<img alt="../_images/simulated_12_199.png" src="../_images/simulated_12_199.png" />
+<img alt="../_images/simulated_12_200.png" src="../_images/simulated_12_200.png" />
+<img alt="../_images/simulated_12_201.png" src="../_images/simulated_12_201.png" />
+<img alt="../_images/simulated_12_202.png" src="../_images/simulated_12_202.png" />
+<img alt="../_images/simulated_12_203.png" src="../_images/simulated_12_203.png" />
+<img alt="../_images/simulated_12_204.png" src="../_images/simulated_12_204.png" />
+<img alt="../_images/simulated_12_205.png" src="../_images/simulated_12_205.png" />
+<img alt="../_images/simulated_12_206.png" src="../_images/simulated_12_206.png" />
+<img alt="../_images/simulated_12_207.png" src="../_images/simulated_12_207.png" />
+<img alt="../_images/simulated_12_208.png" src="../_images/simulated_12_208.png" />
+<img alt="../_images/simulated_12_209.png" src="../_images/simulated_12_209.png" />
+<img alt="../_images/simulated_12_210.png" src="../_images/simulated_12_210.png" />
+<img alt="../_images/simulated_12_211.png" src="../_images/simulated_12_211.png" />
+<img alt="../_images/simulated_12_212.png" src="../_images/simulated_12_212.png" />
+<img alt="../_images/simulated_12_213.png" src="../_images/simulated_12_213.png" />
+<img alt="../_images/simulated_12_214.png" src="../_images/simulated_12_214.png" />
+<img alt="../_images/simulated_12_215.png" src="../_images/simulated_12_215.png" />
+<img alt="../_images/simulated_12_216.png" src="../_images/simulated_12_216.png" />
+<img alt="../_images/simulated_12_217.png" src="../_images/simulated_12_217.png" />
+<img alt="../_images/simulated_12_218.png" src="../_images/simulated_12_218.png" />
+<img alt="../_images/simulated_12_219.png" src="../_images/simulated_12_219.png" />
+<img alt="../_images/simulated_12_220.png" src="../_images/simulated_12_220.png" />
+<img alt="../_images/simulated_12_221.png" src="../_images/simulated_12_221.png" />
+<img alt="../_images/simulated_12_222.png" src="../_images/simulated_12_222.png" />
+<img alt="../_images/simulated_12_223.png" src="../_images/simulated_12_223.png" />
+<img alt="../_images/simulated_12_224.png" src="../_images/simulated_12_224.png" />
+<img alt="../_images/simulated_12_225.png" src="../_images/simulated_12_225.png" />
+<img alt="../_images/simulated_12_226.png" src="../_images/simulated_12_226.png" />
+<img alt="../_images/simulated_12_227.png" src="../_images/simulated_12_227.png" />
+<img alt="../_images/simulated_12_228.png" src="../_images/simulated_12_228.png" />
+<img alt="../_images/simulated_12_229.png" src="../_images/simulated_12_229.png" />
+<img alt="../_images/simulated_12_230.png" src="../_images/simulated_12_230.png" />
+<img alt="../_images/simulated_12_231.png" src="../_images/simulated_12_231.png" />
+<img alt="../_images/simulated_12_232.png" src="../_images/simulated_12_232.png" />
+<img alt="../_images/simulated_12_233.png" src="../_images/simulated_12_233.png" />
+<img alt="../_images/simulated_12_234.png" src="../_images/simulated_12_234.png" />
+<img alt="../_images/simulated_12_235.png" src="../_images/simulated_12_235.png" />
+<img alt="../_images/simulated_12_236.png" src="../_images/simulated_12_236.png" />
+<img alt="../_images/simulated_12_237.png" src="../_images/simulated_12_237.png" />
+<img alt="../_images/simulated_12_238.png" src="../_images/simulated_12_238.png" />
+<img alt="../_images/simulated_12_239.png" src="../_images/simulated_12_239.png" />
+<img alt="../_images/simulated_12_240.png" src="../_images/simulated_12_240.png" />
+<img alt="../_images/simulated_12_241.png" src="../_images/simulated_12_241.png" />
+<img alt="../_images/simulated_12_242.png" src="../_images/simulated_12_242.png" />
+<img alt="../_images/simulated_12_243.png" src="../_images/simulated_12_243.png" />
+<img alt="../_images/simulated_12_244.png" src="../_images/simulated_12_244.png" />
+<img alt="../_images/simulated_12_245.png" src="../_images/simulated_12_245.png" />
+<img alt="../_images/simulated_12_246.png" src="../_images/simulated_12_246.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation_df</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">correlation_df</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">reorder_categories</span><span class="p">([</span><span class="s1">&#39;VI&#39;</span><span class="p">,</span> <span class="s1">&#39;EM&#39;</span><span class="p">,</span> <span class="s1">&#39;Steady-state&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">with</span> <span class="n">mplscience</span><span class="o">.</span><span class="n">style_context</span><span class="p">():</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">correlation_df</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="s1">&#39;n_obs&#39;</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s1">&#39;correlation&#39;</span><span class="p">,</span>
+        <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;method&quot;</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;colorblind&#39;</span>
+    <span class="p">)</span>
+
+<span class="k">if</span> <span class="n">SAVE_FIGURES</span><span class="p">:</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
+        <span class="n">FIG_DIR</span> <span class="o">/</span> <span class="s1">&#39;comparison&#39;</span> <span class="o">/</span> <span class="s1">&#39;correlation_estimated_rates_vs_ground_truth.svg&#39;</span><span class="p">,</span>
+        <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;svg&quot;</span><span class="p">,</span>
+        <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/simulated_14_0.png" src="../_images/simulated_14_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "velovi-py39"
+        },
+        kernelOptions: {
+            kernelName: "velovi-py39",
+            path: "./estimation_comparison"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'velovi-py39'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="pancreas.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Comparison of velocities between EM and VI model</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="runtime.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Runtime comparison</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By VeloVI Team<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
