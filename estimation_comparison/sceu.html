@@ -1,0 +1,1453 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Comparison of velocities between EM and VI model &#8212; VeloVI Reproducibility</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'estimation_comparison/sceu';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Comparison of velocities between EM and VI model" href="fucci.html" />
+    <link rel="prev" title="Intro" href="../intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">VeloVI Reproducibility</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Intro
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimation Comparison</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Comparison of velocities between EM and VI model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fucci.html">Comparison of velocities between EM and VI model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_fit.html">Model fit comparsion - MSE, velocity confidence, correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pancreas.html">Comparison of velocities between EM and VI model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulated.html">Inference comparison on simulated data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runtime.html">Runtime comparison</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Time Dependent Rates</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../time_dependent_rates/mse_comparison.html">MSE with time dependent transcription rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../time_dependent_rates/pancreas.html">MSE with time dependent transcription rate</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Permutation Score</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../permutation_score/pfc.html">Permutation score analysis - Pre-frontal cortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../permutation_score/dataset_comparison.html">Permutation score - Dataset comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../permutation_score/old_brain.html">Imports and helper functions</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../permutation_score/spermatogenesis.html">Permutation score analysis - Spermatogenesis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../permutation_score/pancreas.html">Permutation score analysis - Pancreas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Uncertainty</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../uncertainty/pancreas.html">Uncertainty analysis - Pancreas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uncertainty/pancreas_noise.html">Uncertainty analysis - Pancreas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../case_studies/dentategyrus.html">Uncertainty analysis - Dentate gyrus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../case_studies/pbmc.html">PBMC</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Runtime Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../runtime_analysis/velo_runtime_analysis.html">VeloVI Runtime Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Preprocessing Stability</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing_stability/dentategyrus/README.html">Preprocessing analysis for RNA velocity in dentate gyurs</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/adata_generation.html">Data generation for RNA velocity analysis in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_decoy_gtr_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_decoy_gtr_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_gtr_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_gtr_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_decoy_gtr_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_decoy_gtr_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_gtr_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_gtr_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_spliced_unspliced_gtr_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_spliced_unspliced_gtr_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/correlation_analysis.html">Correlation analysis across preprocessing tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_exclude_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_exclude_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_include_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_include_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_exclude_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_exclude_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_include_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_include_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_subtr_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_subtr_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_vi.html">RNA velocity in dentate gyrus</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing_stability/old_brain/README.html">Preprocessing analysis for RNA velocity in mouse brain</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/adata_generation.html">Data generation for RNA velocity analysis in mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_decoy_gtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_decoy_gtr_vi.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_gtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_gtr_vi.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_decoy_gtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_decoy_gtr_vi.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_gtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_gtr_vi.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_spliced_unspliced_gtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_spliced_unspliced_gtr_vi.html">RNA velocity in adult mouse brain</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/correlation_analysis.html">Correlation analysis across preprocessing tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/dropest_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/dropest_vi.html">RNA velocity in adult mouse brain</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_exclude_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_exclude_vi.html">RNA velocity in adult mouse brain</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_include_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_include_vi.html">RNA velocity in adult mouse brain</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_exclude_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_exclude_vi.html">RNA velocity in adult mouse brain</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_include_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_include_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_subtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_subtr_vi.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_vi.html">RNA velocity in adult mouse brain</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/velocyto_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/velocyto_vi.html">RNA velocity in adult mouse brain</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing_stability/pancreas/README.html">Preprocessing analysis for RNA velocity in panreatic endocrinogenesis</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/adata_generation.html">Data generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_decoy_gtr_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_decoy_gtr_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_gtr_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_gtr_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_decoy_gtr_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_decoy_gtr_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_gtr_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_gtr_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_spliced_unspliced_gtr_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_spliced_unspliced_gtr_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/correlation_analysis.html">Correlation analysis across preprocessing tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/dropest_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/dropest_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_exclude_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_exclude_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_include_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_include_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_exclude_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_exclude_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_include_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_include_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_subtr_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_subtr_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/velocyto_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/velocyto_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing_stability/pfc/README.html">Preprocessing analysis for RNA velocity in the prefrontal coretex</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/adata_generation.html">Data generation for RNA velocity analysis in pre-frontal cortex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_decoy_gtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_decoy_gtr_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_gtr_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_gtr_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_decoy_gtr_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_decoy_gtr_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_gtr_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_gtr_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_spliced_unspliced_gtr_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_spliced_unspliced_gtr_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/correlation_analysis.html">Correlation analysis across preprocessing tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/dropest_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/dropest_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_exclude_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_exclude_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_include.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_include_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_exclude_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_exclude_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_include_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_include_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/starsolo_em_ss.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/starsolo_subtr_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/starsolo_subtr_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/starsolo_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/velocyto_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/velocyto_vi.html">RNA velocity in PFC</a></li>
+
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/README.html">Preprocessing analysis for RNA velocity in spermatogenesis</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/adata_generation.html">Data generation for RNA velocity analysis in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_decoy_gtr_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_decoy_gtr_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_gtr_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_gtr_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_decoy_gtr_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_decoy_gtr_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_gtr_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_gtr_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_spliced_unspliced_gtr_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_spliced_unspliced_gtr_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/correlation_analysis.html">Correlation analysis across preprocessing tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/dropest_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/dropest_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_exclude_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_exclude_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_include_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_include_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_exclude_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_exclude_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_include_em_ss.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_include_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_em_ss.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_subtr_em_ss.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_subtr_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/velocyto_em_ss.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/velocyto_vi.html">RNA velocity in spermatogenesis</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/YosefLab/velovi_reproducibility" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/estimation_comparison/sceu.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Comparison of velocities between EM and VI model</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#library-imports">Library imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-settings">General settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-definitions">Function definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loading">Data loading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing">Data preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-fitting">Model fitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#em-model">EM model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vi-model">VI model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-velocity">Empirical velocity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-processing">Velocity processing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-confidence">Velocity confidence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gam-fitting">GAM fitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimated-velocity-vs-empirical-velocity">Estimated velocity vs. empirical velocity</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="comparison-of-velocities-between-em-and-vi-model">
+<h1>Comparison of velocities between EM and VI model<a class="headerlink" href="#comparison-of-velocities-between-em-and-vi-model" title="Permalink to this heading">#</a></h1>
+<section id="library-imports">
+<h2>Library imports<a class="headerlink" href="#library-imports" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">pygam</span> <span class="kn">import</span> <span class="n">GAM</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">pearsonr</span><span class="p">,</span> <span class="n">spearmanr</span><span class="p">,</span> <span class="n">ttest_ind</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">velovi</span> <span class="kn">import</span> <span class="n">preprocess_data</span><span class="p">,</span> <span class="n">VELOVI</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">mplscience</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">to_hex</span>
+
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">import</span> <span class="nn">scvelo</span> <span class="k">as</span> <span class="nn">scv</span>
+<span class="kn">import</span> <span class="nn">scvi</span>
+<span class="kn">from</span> <span class="nn">scvelo.plotting.simulation</span> <span class="kn">import</span> <span class="n">compute_dynamics</span>
+
+<span class="kn">from</span> <span class="nn">_calculation</span> <span class="kn">import</span> <span class="n">get_gams</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;../..&quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">paths</span> <span class="kn">import</span> <span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">FIG_DIR</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Global seed set to 0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="general-settings">
+<h2>General settings<a class="headerlink" href="#general-settings" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scvi</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">dl_pin_memory_gpu_training</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">reset_defaults</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">reset_orig</span><span class="p">()</span>
+<span class="n">scv</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="s1">&#39;scvelo&#39;</span><span class="p">,</span> <span class="n">dpi_save</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color_map</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SAVE_FIGURES</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">SAVE_FIGURES</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">FIG_DIR</span> <span class="o">/</span> <span class="s1">&#39;comparison&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="function-definitions">
+<h2>Function definitions<a class="headerlink" href="#function-definitions" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit_scvelo</span><span class="p">(</span><span class="n">adata</span><span class="p">):</span>
+    <span class="n">scv</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">recover_dynamics</span><span class="p">(</span>
+        <span class="n">adata</span><span class="p">,</span> <span class="n">fit_scaling</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">8</span>
+    <span class="p">)</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;fit_scaling&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">scv</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">velocity</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;dynamical&quot;</span><span class="p">,</span> <span class="n">min_likelihood</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">min_r2</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit_velovi</span><span class="p">(</span><span class="n">bdata</span><span class="p">):</span>
+    <span class="n">VELOVI</span><span class="o">.</span><span class="n">setup_anndata</span><span class="p">(</span><span class="n">bdata</span><span class="p">,</span> <span class="n">spliced_layer</span><span class="o">=</span><span class="s2">&quot;Ms&quot;</span><span class="p">,</span> <span class="n">unspliced_layer</span><span class="o">=</span><span class="s2">&quot;Mu&quot;</span><span class="p">)</span>
+
+    <span class="n">vae</span> <span class="o">=</span> <span class="n">VELOVI</span><span class="p">(</span><span class="n">bdata</span><span class="p">)</span>
+    <span class="n">vae</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">vae</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;elbo_train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">20</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;elbo_train&#39;</span><span class="p">:</span> <span class="s1">&#39;elbo&#39;</span><span class="p">})</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;set&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;train&#39;</span>
+
+    <span class="n">_df</span> <span class="o">=</span> <span class="n">vae</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;elbo_validation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">20</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;elbo_validation&#39;</span><span class="p">:</span> <span class="s1">&#39;elbo&#39;</span><span class="p">})</span>
+    <span class="n">_df</span><span class="p">[</span><span class="s1">&#39;set&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;validation&#39;</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">mplscience</span><span class="o">.</span><span class="n">style_context</span><span class="p">():</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;elbo&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;set&#39;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#0173B2&#39;</span><span class="p">,</span> <span class="s1">&#39;#DE8F05&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="n">latent_time</span> <span class="o">=</span> <span class="n">vae</span><span class="o">.</span><span class="n">get_latent_time</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+    <span class="n">velocities</span> <span class="o">=</span> <span class="n">vae</span><span class="o">.</span><span class="n">get_velocity</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">velo_statistic</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">)</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="n">latent_time</span>
+    <span class="n">scaling</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">/</span> <span class="n">t</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;velocities_velovi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">velocities</span> <span class="o">/</span> <span class="n">scaling</span>
+    <span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;latent_time_velovi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latent_time</span>
+
+    <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;fit_alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vae</span><span class="o">.</span><span class="n">get_rates</span><span class="p">()[</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">scaling</span>
+    <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;fit_beta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vae</span><span class="o">.</span><span class="n">get_rates</span><span class="p">()[</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">scaling</span>
+    <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;fit_gamma&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vae</span><span class="o">.</span><span class="n">get_rates</span><span class="p">()[</span><span class="s2">&quot;gamma&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">scaling</span>
+    <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;fit_t_&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">softplus</span><span class="p">(</span><span class="n">vae</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">switch_time_unconstr</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="p">)</span> <span class="o">*</span> <span class="n">scaling</span>
+    <span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;fit_t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latent_time</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">scaling</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;fit_scaling&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="k">return</span> <span class="n">vae</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_confidence</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">vkey</span><span class="o">=</span><span class="s2">&quot;velocity&quot;</span><span class="p">):</span>
+    <span class="n">velo</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">vkey</span><span class="p">]</span>
+    <span class="n">scv</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">velocity_graph</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">vkey</span><span class="o">=</span><span class="n">vkey</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">scv</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">velocity_confidence</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">vkey</span><span class="o">=</span><span class="n">vkey</span><span class="p">)</span>
+
+    <span class="n">g_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">g_df</span><span class="p">[</span><span class="s2">&quot;Velocity confidence&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">vkey</span><span class="si">}</span><span class="s2">_confidence&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">g_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_significance</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">left</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">significance</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">bracket_level</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;bracket_level&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">bracket_height</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;bracket_height&quot;</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">text_height</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;text_height&quot;</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+    
+    <span class="n">bottom</span><span class="p">,</span> <span class="n">top</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+    <span class="n">y_axis_range</span> <span class="o">=</span> <span class="n">top</span> <span class="o">-</span> <span class="n">bottom</span>
+
+    <span class="n">bracket_level</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_axis_range</span> <span class="o">*</span> <span class="mf">0.07</span> <span class="o">*</span> <span class="n">level</span><span class="p">)</span> <span class="o">+</span> <span class="n">top</span> <span class="o">*</span> <span class="n">bracket_level</span>
+    <span class="n">bracket_height</span> <span class="o">=</span> <span class="n">bracket_level</span> <span class="o">-</span> <span class="p">(</span><span class="n">y_axis_range</span> <span class="o">*</span> <span class="n">bracket_height</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">right</span><span class="p">],</span>
+        <span class="p">[</span><span class="n">bracket_height</span><span class="p">,</span> <span class="n">bracket_level</span><span class="p">,</span> <span class="n">bracket_level</span><span class="p">,</span> <span class="n">bracket_height</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span>
+
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">bracket_level</span> <span class="o">+</span> <span class="p">(</span><span class="n">y_axis_range</span> <span class="o">*</span> <span class="n">text_height</span><span class="p">),</span>
+        <span class="n">significance</span><span class="p">,</span>
+        <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+        <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
+        <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_classification_scores</span><span class="p">(</span><span class="n">velo_sign_true</span><span class="p">,</span> <span class="n">velo_sign_pred</span><span class="p">,</span> <span class="n">score_fun</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">n_vars</span> <span class="o">=</span> <span class="n">velo_sign_true</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">em_score</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">score_fun</span><span class="p">(</span><span class="n">velo_sign_true</span><span class="p">[:,</span> <span class="n">var_id</span><span class="p">],</span> <span class="n">velo_sign_pred</span><span class="p">[</span><span class="s2">&quot;EM&quot;</span><span class="p">][:,</span> <span class="n">var_id</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">var_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_vars</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="n">vi_score</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">score_fun</span><span class="p">(</span><span class="n">velo_sign_true</span><span class="p">[:,</span> <span class="n">var_id</span><span class="p">],</span> <span class="n">velo_sign_pred</span><span class="p">[</span><span class="s2">&quot;VI&quot;</span><span class="p">][:,</span> <span class="n">var_id</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">var_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_vars</span><span class="p">)</span>
+    <span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">em_score</span><span class="p">,</span> <span class="n">vi_score</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_significance</span><span class="p">(</span><span class="n">pvalue</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">pvalue</span> <span class="o">&lt;</span> <span class="mf">0.001</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;***&quot;</span>
+    <span class="k">elif</span> <span class="n">pvalue</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;**&quot;</span>
+    <span class="k">elif</span> <span class="n">pvalue</span> <span class="o">&lt;</span> <span class="mf">0.1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;*&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;n.s.&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_classification_score</span><span class="p">(</span><span class="n">em_score</span><span class="p">,</span> <span class="n">vi_score</span><span class="p">,</span> <span class="n">baseline_performance</span><span class="p">,</span> <span class="n">score_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">n_vars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">em_score</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="n">score_name</span><span class="p">:</span> <span class="n">vi_score</span> <span class="o">+</span> <span class="n">em_score</span> <span class="o">+</span> <span class="n">baseline_performance</span><span class="p">,</span>
+            <span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;VI&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_vars</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;EM&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_vars</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Random&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_vars</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">mplscience</span><span class="o">.</span><span class="n">style_context</span><span class="p">():</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+        <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Model&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">score_name</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;colorblind&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-loading">
+<h2>Data loading<a class="headerlink" href="#data-loading" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;scEU&quot;</span> <span class="o">/</span> <span class="s2">&quot;gex_raw.h5ad&quot;</span><span class="p">)</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;labeling_time&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;dmso&quot;</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;labeling_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;labeling_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Pulse&quot;</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;unspliced&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;unlabeled_unspliced&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;labeled_unspliced&quot;</span><span class="p">]</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;spliced&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;unlabeled_spliced&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;labeled_spliced&quot;</span><span class="p">]</span>
+
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;pseudo_clusters&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;cell_cycle_position&quot;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;pseudo_clusters_equal_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;cell_cycle_position&quot;</span><span class="p">],</span> <span class="n">q</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;pseudo_clusters_equal_size_num&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;pseudo_clusters_equal_size&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;cell_cycle_rad&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;cell_cycle_position&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;cell_cycle_position&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+<span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AnnData object with n_obs × n_vars = 2793 × 11848
+    obs: &#39;experiment&#39;, &#39;labeling_time&#39;, &#39;plate_id&#39;, &#39;well_id&#39;, &#39;cell_cycle_position&#39;, &#39;RFP_log10_corrected&#39;, &#39;GFP_log10_corrected&#39;, &#39;pseudo_clusters&#39;, &#39;pseudo_clusters_equal_size&#39;, &#39;pseudo_clusters_equal_size_num&#39;, &#39;cell_cycle_rad&#39;
+    layers: &#39;labeled_spliced&#39;, &#39;labeled_unspliced&#39;, &#39;new&#39;, &#39;total&#39;, &#39;unlabeled_spliced&#39;, &#39;unlabeled_unspliced&#39;, &#39;unspliced&#39;, &#39;spliced&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-preprocessing">
+<h2>Data preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scv</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_and_normalize</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_counts</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">layers_normalize</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;new&#39;</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="s1">&#39;unspliced&#39;</span><span class="p">,</span> <span class="s1">&#39;spliced&#39;</span><span class="p">],</span> <span class="n">n_top_genes</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Filtered out 905 genes that are detected 10 counts (spliced).
+Normalized count data: X, new, total, unspliced, spliced.
+Extracted 2000 highly variable genes.
+Logarithmized X.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">svd_solver</span><span class="o">=</span><span class="s1">&#39;arpack&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">n_pcs</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+
+<span class="n">scv</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">moments</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_pcs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;Ms_log1p&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;Ms&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>computing moments based on connectivities
+    finished (0:00:00) --&gt; added 
+    &#39;Ms&#39; and &#39;Mu&#39;, moments of un/spliced abundances (adata.layers)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">mplscience</span><span class="o">.</span><span class="n">style_context</span><span class="p">():</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">scv</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;umap&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;cell_cycle_position&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">SAVE_FIGURES</span><span class="p">:</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
+        <span class="n">FIG_DIR</span> <span class="o">/</span> <span class="s1">&#39;comparison&#39;</span> <span class="o">/</span> <span class="s1">&#39;sceu_cell_cycle_umap.svg&#39;</span><span class="p">,</span>
+        <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;svg&quot;</span><span class="p">,</span>
+        <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03a1e10c24c80708d486c64fdeb1c99a2602a0c687b21d325dc95bd75b090e75.png" src="../_images/03a1e10c24c80708d486c64fdeb1c99a2602a0c687b21d325dc95bd75b090e75.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">preprocess_data</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+
+<span class="n">bdata</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">cdata</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">((</span><span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;Mu&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;Ms&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.008771929824561403
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-fitting">
+<h2>Model fitting<a class="headerlink" href="#model-fitting" title="Permalink to this heading">#</a></h2>
+<section id="em-model">
+<h3>EM model<a class="headerlink" href="#em-model" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fit_scvelo</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>recovering dynamics (using 8/14 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d532919a50454060886509f8724e2ac2", "version_major": 2, "version_minor": 0}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Global seed set to 0
+Global seed set to 0
+Global seed set to 0
+Global seed set to 0
+Global seed set to 0
+Global seed set to 0
+Global seed set to 0
+Global seed set to 0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:08) --&gt; added 
+    &#39;fit_pars&#39;, fitted parameters for splicing dynamics (adata.var)
+computing velocities
+    finished (0:00:00) --&gt; added 
+    &#39;velocity&#39;, velocity vectors for each individual cell (adata.layers)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="vi-model">
+<h3>VI model<a class="headerlink" href="#vi-model" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">velovi_vae</span> <span class="o">=</span> <span class="n">fit_velovi</span><span class="p">(</span><span class="n">bdata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 314/500:  63%|██████▎   | 314/500 [01:59&lt;01:10,  2.63it/s, loss=-121, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -115.002. Signaling Trainer to stop.
+</pre></div>
+</div>
+<img alt="../_images/7f4eb8c9261fbe5b51e20442e74b1d461fe7bd556fa728571747404788a51c9d.png" src="../_images/7f4eb8c9261fbe5b51e20442e74b1d461fe7bd556fa728571747404788a51c9d.png" />
+</div>
+</div>
+</section>
+<section id="empirical-velocity">
+<h3>Empirical velocity<a class="headerlink" href="#empirical-velocity" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aggr_counts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;cell_cycle_position&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())):</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;cell_cycle_position&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pos</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="n">aggr_counts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;Ms&quot;</span><span class="p">][</span><span class="n">mask</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="n">aggr_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">aggr_counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 290/290 [00:00&lt;00:00, 4516.30it/s]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reorder_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;cell_cycle_rad&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cell_cycle_pos</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;cell_cycle_rad&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">cc_pos_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cell_cycle_pos</span><span class="p">))</span>
+<span class="n">cc_pos_diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">cc_pos_diff</span><span class="p">[</span><span class="n">reorder_mask</span><span class="p">]</span> <span class="o">-</span> <span class="n">cc_pos_diff</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+<span class="n">empirical_velo</span> <span class="o">=</span> <span class="p">(</span><span class="n">aggr_counts</span><span class="p">[</span><span class="n">reorder_mask</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">aggr_counts</span><span class="p">)</span> <span class="o">/</span> <span class="n">cc_pos_diff</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">empirical_velo_sign</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">empirical_velo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="velocity-processing">
+<h3>Velocity processing<a class="headerlink" href="#velocity-processing" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aggr_velo</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;EM&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;VI&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+
+<span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;cell_cycle_position&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())):</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;cell_cycle_position&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pos</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="n">aggr_velo</span><span class="p">[</span><span class="s2">&quot;EM&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;velocity&quot;</span><span class="p">][</span><span class="n">mask</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">aggr_velo</span><span class="p">[</span><span class="s2">&quot;VI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;velocities_velovi&quot;</span><span class="p">][</span><span class="n">mask</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="n">aggr_velo</span><span class="p">[</span><span class="s2">&quot;EM&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">aggr_velo</span><span class="p">[</span><span class="s2">&quot;EM&quot;</span><span class="p">])</span>
+<span class="n">aggr_velo</span><span class="p">[</span><span class="s2">&quot;VI&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">aggr_velo</span><span class="p">[</span><span class="s2">&quot;VI&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 290/290 [00:00&lt;00:00, 3295.36it/s]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aggr_velo_sign</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">aggr_velo_sign</span><span class="p">[</span><span class="s2">&quot;EM&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">aggr_velo</span><span class="p">[</span><span class="s2">&quot;EM&quot;</span><span class="p">])</span>
+<span class="n">aggr_velo_sign</span><span class="p">[</span><span class="s2">&quot;VI&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">aggr_velo</span><span class="p">[</span><span class="s2">&quot;VI&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="velocity-confidence">
+<h2>Velocity confidence<a class="headerlink" href="#velocity-confidence" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">g_df</span> <span class="o">=</span> <span class="n">compute_confidence</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+<span class="n">g_df</span><span class="p">[</span><span class="s2">&quot;Dataset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Cell cycle&quot;</span>
+<span class="n">g_df</span><span class="p">[</span><span class="s2">&quot;Method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;EM model&quot;</span>
+<span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">g_df</span><span class="p">)</span>
+
+<span class="n">g_df</span> <span class="o">=</span> <span class="n">compute_confidence</span><span class="p">(</span><span class="n">bdata</span><span class="p">,</span> <span class="n">vkey</span><span class="o">=</span><span class="s2">&quot;velocities_velovi&quot;</span><span class="p">)</span>
+<span class="n">g_df</span><span class="p">[</span><span class="s2">&quot;Dataset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Cell cycle&quot;</span>
+<span class="n">g_df</span><span class="p">[</span><span class="s2">&quot;Method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;veloVI&quot;</span>
+<span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">g_df</span><span class="p">)</span>
+
+<span class="n">conf_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>computing velocity graph (using 8/14 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "bb9420ef655b4535b8997a8fcfc14484", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:02) --&gt; added 
+    &#39;velocity_graph&#39;, sparse matrix with cosine correlations (adata.uns)
+--&gt; added &#39;velocity_length&#39; (adata.obs)
+--&gt; added &#39;velocity_confidence&#39; (adata.obs)
+--&gt; added &#39;velocity_confidence_transition&#39; (adata.obs)
+computing velocity graph (using 8/14 cores)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5d66208e29cb4e7c866a84627dabeacb", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:02) --&gt; added 
+    &#39;velocities_velovi_graph&#39;, sparse matrix with cosine correlations (adata.uns)
+--&gt; added &#39;velocities_velovi_length&#39; (adata.obs)
+--&gt; added &#39;velocities_velovi_confidence&#39; (adata.obs)
+--&gt; added &#39;velocities_velovi_confidence_transition&#39; (adata.obs)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">mplscience</span><span class="o">.</span><span class="n">style_context</span><span class="p">():</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">conf_df</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Dataset&quot;</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Velocity confidence&quot;</span><span class="p">,</span>
+        <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Method&quot;</span><span class="p">,</span>
+        <span class="n">hue_order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;veloVI&quot;</span><span class="p">,</span> <span class="s2">&quot;EM model&quot;</span><span class="p">],</span>
+        <span class="n">palette</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">([</span><span class="s1">&#39;#0173B2&#39;</span><span class="p">,</span> <span class="s1">&#39;#DE8F05&#39;</span><span class="p">]),</span>
+    <span class="p">);</span>
+
+<span class="k">if</span> <span class="n">SAVE_FIGURES</span><span class="p">:</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
+        <span class="n">FIG_DIR</span> <span class="o">/</span> <span class="s1">&#39;comparison&#39;</span> <span class="o">/</span> <span class="s1">&#39;sceu_velocity_confidence.svg&#39;</span><span class="p">,</span>
+        <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;svg&quot;</span><span class="p">,</span>
+        <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/vol/storage/miniconda3/envs/velovi-py39/lib/python3.9/site-packages/seaborn/categorical.py:381: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  if LooseVersion(mpl.__version__) &lt; &quot;3.0&quot;:
+/vol/storage/miniconda3/envs/velovi-py39/lib/python3.9/site-packages/setuptools/_distutils/version.py:346: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  other = LooseVersion(other)
+</pre></div>
+</div>
+<img alt="../_images/49c1ad310489f0d07d6eea245e526346212aa3024cbd472fc023bdb03d4c1404.png" src="../_images/49c1ad310489f0d07d6eea245e526346212aa3024cbd472fc023bdb03d4c1404.png" />
+</div>
+</div>
+</section>
+<section id="gam-fitting">
+<h2>GAM fitting<a class="headerlink" href="#gam-fitting" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gams</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">gams</span><span class="p">[</span><span class="s2">&quot;EM&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_gams</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;velocity&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s2">&quot;cell_cycle_rad&quot;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">gams</span><span class="p">[</span><span class="s2">&quot;VI&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_gams</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">bdata</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;velocities_velovi&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s2">&quot;cell_cycle_rad&quot;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 140/140 [00:00&lt;00:00, 258.55it/s]
+100%|██████████| 140/140 [00:00&lt;00:00, 262.05it/s]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cell_cycle_score</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;cell_cycle_rad&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">cell_cycle_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">cell_cycle_score</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">cell_cycle_score</span><span class="p">,</span> <span class="n">cell_cycle_score</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;gam_r2_scores&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">gam</span><span class="o">.</span><span class="n">_estimate_r2</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">cell_cycle_score</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;velocity&quot;</span><span class="p">][:,</span> <span class="n">var_id</span><span class="p">])[</span><span class="s2">&quot;McFadden&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">var_id</span><span class="p">,</span> <span class="n">gam</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gams</span><span class="p">[</span><span class="s2">&quot;EM&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="p">]</span>
+
+<span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;gam_r2_scores&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">gam</span><span class="o">.</span><span class="n">_estimate_r2</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">cell_cycle_score</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">bdata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;velocities_velovi&quot;</span><span class="p">][:,</span> <span class="n">var_id</span><span class="p">])[</span><span class="s2">&quot;McFadden&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">var_id</span><span class="p">,</span> <span class="n">gam</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gams</span><span class="p">[</span><span class="s2">&quot;VI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/vol/storage/miniconda3/envs/velovi-py39/lib/python3.9/site-packages/pygam/utils.py:649: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  bases = (x &gt;= aug_knots[:-1]).astype(np.int) * \
+/vol/storage/miniconda3/envs/velovi-py39/lib/python3.9/site-packages/pygam/utils.py:650: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  (x &lt; aug_knots[1:]).astype(np.int)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;EM&quot;</span><span class="p">:</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;gam_r2_scores&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="s2">&quot;VI&quot;</span><span class="p">:</span> <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;gam_r2_scores&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="k">with</span> <span class="n">mplscience</span><span class="o">.</span><span class="n">style_context</span><span class="p">():</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;EM&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;VI&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    
+    <span class="n">lims</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">(),</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()]),</span>  <span class="c1"># min of both axes</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">(),</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()]),</span>  <span class="c1"># max of both axes</span>
+    <span class="p">]</span>
+
+    <span class="c1"># now plot both limits against eachother</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lims</span><span class="p">,</span> <span class="n">lims</span><span class="p">,</span> <span class="s1">&#39;k-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">lims</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">lims</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="n">SAVE_FIGURES</span><span class="p">:</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
+        <span class="n">FIG_DIR</span> <span class="o">/</span> <span class="s1">&#39;comparison&#39;</span> <span class="o">/</span> <span class="s1">&#39;sceu_gam_r2.svg&#39;</span><span class="p">,</span>
+        <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;svg&quot;</span><span class="p">,</span>
+        <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/dedd44ce3cd8532765de41dc7b9be0274172b982abed8adaf3154297b294f803.png" src="../_images/dedd44ce3cd8532765de41dc7b9be0274172b982abed8adaf3154297b294f803.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;gam_r2_scores&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">&gt;</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;gam_r2_scores&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7785714285714286
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="estimated-velocity-vs-empirical-velocity">
+<h2>Estimated velocity vs. empirical velocity<a class="headerlink" href="#estimated-velocity-vs-empirical-velocity" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">random_velo_sign</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;cell_cycle_position&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()),</span> <span class="n">adata</span><span class="o">.</span><span class="n">n_vars</span><span class="p">))</span>
+<span class="n">baseline_performance</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">accuracy_score</span><span class="p">(</span><span class="n">empirical_velo_sign</span><span class="p">[:,</span> <span class="n">var_id</span><span class="p">],</span> <span class="n">random_velo_sign</span><span class="p">[:,</span> <span class="n">var_id</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">var_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">n_vars</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">em_score</span><span class="p">,</span> <span class="n">vi_score</span> <span class="o">=</span> <span class="n">get_classification_scores</span><span class="p">(</span>
+    <span class="n">velo_sign_true</span><span class="o">=</span><span class="n">empirical_velo_sign</span><span class="p">,</span>
+    <span class="n">velo_sign_pred</span><span class="o">=</span><span class="n">aggr_velo_sign</span><span class="p">,</span>
+    <span class="n">score_fun</span><span class="o">=</span><span class="n">accuracy_score</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;Accuracy&quot;</span><span class="p">:</span> <span class="n">vi_score</span> <span class="o">+</span> <span class="n">em_score</span> <span class="o">+</span> <span class="n">baseline_performance</span><span class="p">,</span>
+        <span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;VI&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">adata</span><span class="o">.</span><span class="n">n_vars</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;EM&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">adata</span><span class="o">.</span><span class="n">n_vars</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Random&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">adata</span><span class="o">.</span><span class="n">n_vars</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="k">with</span> <span class="n">mplscience</span><span class="o">.</span><span class="n">style_context</span><span class="p">():</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Model&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;colorblind&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="n">ttest_res</span> <span class="o">=</span> <span class="n">ttest_ind</span><span class="p">(</span><span class="n">vi_score</span><span class="p">,</span> <span class="n">em_score</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="s2">&quot;greater&quot;</span><span class="p">)</span>
+    <span class="n">significance</span> <span class="o">=</span> <span class="n">get_significance</span><span class="p">(</span><span class="n">ttest_res</span><span class="o">.</span><span class="n">pvalue</span><span class="p">)</span>
+    <span class="n">add_significance</span><span class="p">(</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">significance</span><span class="o">=</span><span class="n">significance</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+    
+    <span class="n">ttest_res</span> <span class="o">=</span> <span class="n">ttest_ind</span><span class="p">(</span><span class="n">em_score</span><span class="p">,</span> <span class="n">baseline_performance</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="s2">&quot;greater&quot;</span><span class="p">)</span>
+    <span class="n">significance</span> <span class="o">=</span> <span class="n">get_significance</span><span class="p">(</span><span class="n">ttest_res</span><span class="o">.</span><span class="n">pvalue</span><span class="p">)</span>
+    <span class="n">add_significance</span><span class="p">(</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">significance</span><span class="o">=</span><span class="n">significance</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bracket_level</span><span class="o">=</span><span class="mf">0.975</span>
+    <span class="p">)</span>
+
+    <span class="n">ttest_res</span> <span class="o">=</span> <span class="n">ttest_ind</span><span class="p">(</span><span class="n">em_score</span><span class="p">,</span> <span class="n">baseline_performance</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="s2">&quot;greater&quot;</span><span class="p">)</span>
+    <span class="n">significance</span> <span class="o">=</span> <span class="n">get_significance</span><span class="p">(</span><span class="n">ttest_res</span><span class="o">.</span><span class="n">pvalue</span><span class="p">)</span>
+    <span class="n">add_significance</span><span class="p">(</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">significance</span><span class="o">=</span><span class="n">significance</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bracket_level</span><span class="o">=</span><span class="mf">0.95</span>
+    <span class="p">)</span>
+    
+    <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">+</span> <span class="mf">0.02</span><span class="p">])</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">])</span> 
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">]);</span>
+
+<span class="k">if</span> <span class="n">SAVE_FIGURES</span><span class="p">:</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
+        <span class="n">FIG_DIR</span> <span class="o">/</span> <span class="s1">&#39;comparison&#39;</span> <span class="o">/</span> <span class="s1">&#39;sceu_velocity_sign_accuracy.svg&#39;</span><span class="p">,</span>
+        <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;svg&quot;</span><span class="p">,</span>
+        <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/bfd3b379dcef59e0eb6ddead4b491370a66ab447d0f8b120658e6f4d9b5530a3.png" src="../_images/bfd3b379dcef59e0eb6ddead4b491370a66ab447d0f8b120658e6f4d9b5530a3.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./estimation_comparison"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Intro</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="fucci.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Comparison of velocities between EM and VI model</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#library-imports">Library imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-settings">General settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-definitions">Function definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loading">Data loading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing">Data preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-fitting">Model fitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#em-model">EM model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vi-model">VI model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-velocity">Empirical velocity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-processing">Velocity processing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-confidence">Velocity confidence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gam-fitting">GAM fitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimated-velocity-vs-empirical-velocity">Estimated velocity vs. empirical velocity</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By VeloVI Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
