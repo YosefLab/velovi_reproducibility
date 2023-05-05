@@ -1,5 +1,5 @@
 velovi
-git+https://github.com/theislab/scvelo.git@develop
+git+https://github.com/theislab/scvelo.git@master
 joypy
 mplscience
 jupyter-book
