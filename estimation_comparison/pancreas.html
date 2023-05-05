@@ -64,7 +64,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'estimation_comparison/pancreas';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Inference comparison on simulated data" href="simulated.html" />
+    <link rel="next" title="Runtime comparison" href="runtime.html" />
     <link rel="prev" title="Model fit comparsion - MSE, velocity confidence, correlation" href="model_fit.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -152,11 +152,12 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimation Comparison</span></p>
 <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="simulated.html">Inference comparison on simulated data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation_w_inferred_rates.html">Comparison of inferred velocity and latent times</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sceu.html">Comparison of velocities between EM and VI model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fucci.html">Comparison of velocities between EM and VI model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="model_fit.html">Model fit comparsion - MSE, velocity confidence, correlation</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Comparison of velocities between EM and VI model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="simulated.html">Inference comparison on simulated data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runtime.html">Runtime comparison</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Time Dependent Rates</span></p>
@@ -561,6 +562,10 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="comparison-of-velocities-between-em-and-vi-model">
 <h1>Comparison of velocities between EM and VI model<a class="headerlink" href="#comparison-of-velocities-between-em-and-vi-model" title="Permalink to this heading">#</a></h1>
+<p><strong>Output</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fitted_values.csv</span></code>: CSV file containing fitted parameters using the EM and VI model.</p></li>
+</ul>
 <section id="library-imports">
 <h2>Library imports<a class="headerlink" href="#library-imports" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -589,6 +594,10 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Global seed set to 0
+/home/icb/philipp.weiler/miniconda3/envs/velovi-py39/lib/python3.9/site-packages/pytorch_lightning/utilities/warnings.py:53: LightningDeprecationWarning: pytorch_lightning.utilities.warnings.rank_zero_deprecation has been deprecated in v1.6 and will be removed in v1.8. Use the equivalent function from the pytorch_lightning.utilities.rank_zero module instead.
+  new_rank_zero_deprecation(
+/home/icb/philipp.weiler/miniconda3/envs/velovi-py39/lib/python3.9/site-packages/pytorch_lightning/utilities/warnings.py:58: LightningDeprecationWarning: The `pytorch_lightning.loggers.base.rank_zero_experiment` is deprecated in v1.7 and will be removed in v1.9. Please use `pytorch_lightning.loggers.logger.rank_zero_experiment` instead.
+  return new_rank_zero_deprecation(*args, **kwargs)
 </pre></div>
 </div>
 </div>
@@ -614,7 +623,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SAVE_FIGURES</span> <span class="o">=</span> <span class="kc">True</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SAVE_FIGURES</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="k">if</span> <span class="n">SAVE_FIGURES</span><span class="p">:</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">FIG_DIR</span> <span class="o">/</span> <span class="s1">&#39;comparison&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
@@ -730,7 +739,7 @@ Normalized count data: X, spliced, unspliced.
 Extracted 2000 highly variable genes.
 Logarithmized X.
 computing neighbors
-    finished (0:00:05) --&gt; added 
+    finished (0:00:13) --&gt; added 
     &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
 computing moments based on connectivities
     finished (0:00:00) --&gt; added 
@@ -759,19 +768,35 @@ computing velocities
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/icb/philipp.weiler/miniconda3/envs/velovi-py39/lib/python3.9/site-packages/torch/distributed/_sharded_tensor/__init__.py:8: DeprecationWarning: torch.distributed._sharded_tensor will be deprecated, use torch.distributed._shard.sharded_tensor instead
-  warnings.warn(
-GPU available: True, used: True
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True (cuda), used: True
 TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-Set SLURM handle signals.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 500/500: 100%|██████████| 500/500 [01:56&lt;00:00,  4.29it/s, loss=-2.65e+03, v_num=1]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 500/500: 100%|██████████| 500/500 [03:30&lt;00:00,  2.83it/s, loss=-2.65e+03, v_num=1]
 </pre></div>
 </div>
-<img alt="../_images/90faae0fc921dd9adadfa9f2426ee307c9beff179a323157e310da347d06c9ac.png" src="../_images/90faae0fc921dd9adadfa9f2426ee307c9beff179a323157e310da347d06c9ac.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>`Trainer.fit` stopped: `max_epochs=500` reached.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 500/500: 100%|██████████| 500/500 [03:30&lt;00:00,  2.37it/s, loss=-2.65e+03, v_num=1]
+</pre></div>
+</div>
+<img alt="../_images/bc29e97cb6f56d355a9f735854d10a168581997ddb1e7ac69d5fb2f4ec73d1b9.png" src="../_images/bc29e97cb6f56d355a9f735854d10a168581997ddb1e7ac69d5fb2f4ec73d1b9.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rates_em_model</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[[</span><span class="s1">&#39;fit_alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;fit_beta&#39;</span><span class="p">,</span> <span class="s1">&#39;fit_gamma&#39;</span><span class="p">,</span> <span class="s1">&#39;fit_t_&#39;</span><span class="p">]]</span>
+<span class="n">rates_em_model</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;EM&#39;</span>
+<span class="n">rates_vi_model</span> <span class="o">=</span> <span class="n">bdata</span><span class="o">.</span><span class="n">var</span><span class="p">[[</span><span class="s1">&#39;fit_alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;fit_beta&#39;</span><span class="p">,</span> <span class="s1">&#39;fit_gamma&#39;</span><span class="p">,</span> <span class="s1">&#39;fit_t_&#39;</span><span class="p">]]</span>
+<span class="n">rates_vi_model</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;VI&#39;</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">rates_em_model</span><span class="p">,</span> <span class="n">rates_vi_model</span><span class="p">])</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;pancreas&quot;</span> <span class="o">/</span> <span class="s2">&quot;fitted_values.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -829,8 +854,8 @@ Correlation Top2a: 0.1308248586326778
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/26146d1d59e97b3efc53214586f7156f15d247a1c60c30196d6c093787d2433b.png" src="../_images/26146d1d59e97b3efc53214586f7156f15d247a1c60c30196d6c093787d2433b.png" />
-<img alt="../_images/2dcbe85a60fa4ead9b25ae40980c3d4645934d6fb38d6340628bffd6dcedd8fc.png" src="../_images/2dcbe85a60fa4ead9b25ae40980c3d4645934d6fb38d6340628bffd6dcedd8fc.png" />
+<img alt="../_images/5743c2de2e3ecd7088e07c61edff424fbfed3a3ddb7e5a4a08365ca73e78c348.png" src="../_images/5743c2de2e3ecd7088e07c61edff424fbfed3a3ddb7e5a4a08365ca73e78c348.png" />
+<img alt="../_images/40f37a94ab1e40648fd81288c0de5ffe381566dbc7312ac651be5428dcbb3c29.png" src="../_images/40f37a94ab1e40648fd81288c0de5ffe381566dbc7312ac651be5428dcbb3c29.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -900,8 +925,8 @@ Correlation Top2a: 0.1308248586326778
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/97d2cbdf4ce490dfac4b0a03d5ed006cfaa4f36667f1563c38f575ab947d84ac.png" src="../_images/97d2cbdf4ce490dfac4b0a03d5ed006cfaa4f36667f1563c38f575ab947d84ac.png" />
-<img alt="../_images/938cd7b85f1cc1c9823de3cfa653aab4c94e4c24a0c460d38000ed5cb09f4778.png" src="../_images/938cd7b85f1cc1c9823de3cfa653aab4c94e4c24a0c460d38000ed5cb09f4778.png" />
+<img alt="../_images/863affb157c55d73bad9e12109d653bd55e794fa960be2336910e0a406222990.png" src="../_images/863affb157c55d73bad9e12109d653bd55e794fa960be2336910e0a406222990.png" />
+<img alt="../_images/9b91bc364d1f4c34e4f22abe7d885dc6b66f6186a467d63bb74175b51ca95b74.png" src="../_images/9b91bc364d1f4c34e4f22abe7d885dc6b66f6186a467d63bb74175b51ca95b74.png" />
 </div>
 </div>
 </section>
@@ -949,11 +974,11 @@ Correlation Top2a: 0.1308248586326778
       </div>
     </a>
     <a class="right-next"
-       href="simulated.html"
+       href="runtime.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Inference comparison on simulated data</p>
+        <p class="prev-next-title">Runtime comparison</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
