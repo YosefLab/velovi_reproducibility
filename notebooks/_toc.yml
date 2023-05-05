@@ -3,6 +3,8 @@ root: intro
 parts:
   - caption: Estimation Comparison
     chapters:
+      - file: estimation_comparison/sceu
+      - file: estimation_comparison/fucci
       - file: estimation_comparison/model_fit
       - file: estimation_comparison/pancreas
       - file: estimation_comparison/simulated
