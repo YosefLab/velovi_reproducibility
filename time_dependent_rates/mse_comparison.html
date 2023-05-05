@@ -713,6 +713,8 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "45fa6de9eb9740538b808490d31a59d1", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="data-preprocessing">
@@ -734,7 +736,7 @@ Normalized count data: X, spliced, unspliced.
 Extracted 2000 highly variable genes.
 Logarithmized X.
 computing neighbors
-    finished (0:00:11) --&gt; added 
+    finished (0:00:05) --&gt; added 
     &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
 computing moments based on connectivities
     finished (0:00:00) --&gt; added 
@@ -747,7 +749,7 @@ Normalized count data: X, spliced, unspliced.
 Extracted 2000 highly variable genes.
 Logarithmized X.
 computing neighbors
-    finished (0:00:16) --&gt; added 
+    finished (0:00:15) --&gt; added 
     &#39;distances&#39; and &#39;connectivities&#39;, weighted adjacency matrices (adata.obsp)
 computing moments based on connectivities
     finished (0:00:02) --&gt; added 
@@ -801,55 +803,59 @@ computing velocities
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/icb/philipp.weiler/miniconda3/envs/velovi-py39/lib/python3.9/site-packages/torch/distributed/_sharded_tensor/__init__.py:8: DeprecationWarning: torch.distributed._sharded_tensor will be deprecated, use torch.distributed._shard.sharded_tensor instead
-  warnings.warn(
-GPU available: True, used: True
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True (cuda), used: True
 TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-Set SLURM handle signals.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 500/500: 100%|██████████| 500/500 [02:12&lt;00:00,  3.79it/s, loss=-2.65e+03, v_num=1]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 500/500: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [03:53&lt;00:00,  2.26it/s, loss=-2.65e+03, v_num=1]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>`Trainer.fit` stopped: `max_epochs=500` reached.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 500/500: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [03:53&lt;00:00,  2.14it/s, loss=-2.65e+03, v_num=1]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True (cuda), used: True
 TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-Set SLURM handle signals.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 290/500:  58%|█████▊    | 290/500 [05:58&lt;04:19,  1.23s/it, loss=-4.57e+03, v_num=1]
-Monitored metric elbo_validation did not improve in the last 45 records. Best score: -4526.719. Signaling Trainer to stop.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 236/500:  47%|██████████████████████████████████████████████▋                                                    | 236/500 [09:15&lt;10:21,  2.35s/it, loss=-4.63e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -4516.801. Signaling Trainer to stop.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True (cuda), used: True
 TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-Set SLURM handle signals.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 431/500:  86%|████████▌ | 431/500 [01:02&lt;00:10,  6.90it/s, loss=-1.41e+03, v_num=1]
-Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1378.101. Signaling Trainer to stop.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 428/500:  86%|█████████████████████████████████████████████████████████████████████████████████████▌              | 428/500 [01:48&lt;00:18,  3.93it/s, loss=-1.4e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1375.804. Signaling Trainer to stop.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True (cuda), used: True
 TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-Set SLURM handle signals.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 412/500:  82%|████████▏ | 412/500 [01:20&lt;00:17,  5.10it/s, loss=-1.89e+03, v_num=1]
-Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1824.585. Signaling Trainer to stop.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 445/500:  89%|█████████████████████████████████████████████████████████████████████████████████████████           | 445/500 [03:18&lt;00:24,  2.24it/s, loss=-1.9e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1827.274. Signaling Trainer to stop.
 </pre></div>
 </div>
 <img alt="../_images/90faae0fc921dd9adadfa9f2426ee307c9beff179a323157e310da347d06c9ac.png" src="../_images/90faae0fc921dd9adadfa9f2426ee307c9beff179a323157e310da347d06c9ac.png" />
-<img alt="../_images/3b005fa90c5eec3df34b4180e9e8f9725047a1636f1d806a4aa56611ad4b75a6.png" src="../_images/3b005fa90c5eec3df34b4180e9e8f9725047a1636f1d806a4aa56611ad4b75a6.png" />
-<img alt="../_images/c29554c26cc42b19357de2da536172311dc6af8c3f599234a165cbe5ead9c50f.png" src="../_images/c29554c26cc42b19357de2da536172311dc6af8c3f599234a165cbe5ead9c50f.png" />
-<img alt="../_images/5385a92352fe22d45a42d965e8fafa60a488ae4196c14058c7b8bc4103a087a4.png" src="../_images/5385a92352fe22d45a42d965e8fafa60a488ae4196c14058c7b8bc4103a087a4.png" />
+<img alt="../_images/de6e66299a1ecddd85ebdf47734b0fce537c512430144aa5473370d5e6cee60e.png" src="../_images/de6e66299a1ecddd85ebdf47734b0fce537c512430144aa5473370d5e6cee60e.png" />
+<img alt="../_images/1f439a53debc36bfdf368bbd4f88ea726eab8dea6388816c69bd9a9f710e7cf6.png" src="../_images/1f439a53debc36bfdf368bbd4f88ea726eab8dea6388816c69bd9a9f710e7cf6.png" />
+<img alt="../_images/46d71aa60c3274f78b09982a1b26492761084a95f7ac94c31b4ff18146272835.png" src="../_images/46d71aa60c3274f78b09982a1b26492761084a95f7ac94c31b4ff18146272835.png" />
 </div>
 </div>
 </section>
@@ -866,54 +872,54 @@ Monitored metric elbo_validation did not improve in the last 45 records. Best sc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True (cuda), used: True
 TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-Set SLURM handle signals.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 489/500:  98%|█████████▊| 489/500 [02:43&lt;00:03,  3.00it/s, loss=-2.88e+03, v_num=1]
-Monitored metric elbo_validation did not improve in the last 45 records. Best score: -2795.109. Signaling Trainer to stop.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 479/500:  96%|██████████████████████████████████████████████████████████████████████████████████████████████▊    | 479/500 [05:33&lt;00:14,  1.43it/s, loss=-2.89e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -2798.792. Signaling Trainer to stop.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True (cuda), used: True
 TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-Set SLURM handle signals.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 260/500:  52%|█████▏    | 260/500 [06:29&lt;05:59,  1.50s/it, loss=-4.96e+03, v_num=1]
-Monitored metric elbo_validation did not improve in the last 45 records. Best score: -4880.669. Signaling Trainer to stop.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 222/500:  44%|███████████████████████████████████████████▉                                                       | 222/500 [10:28&lt;13:07,  2.83s/it, loss=-4.95e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -4872.801. Signaling Trainer to stop.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True (cuda), used: True
 TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-Set SLURM handle signals.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 458/500:  92%|█████████▏| 458/500 [01:20&lt;00:07,  5.69it/s, loss=-1.57e+03, v_num=1]
-Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1536.751. Signaling Trainer to stop.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 466/500:  93%|████████████████████████████████████████████████████████████████████████████████████████████▎      | 466/500 [02:41&lt;00:11,  2.89it/s, loss=-1.57e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1543.219. Signaling Trainer to stop.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True, used: True
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True (cuda), used: True
 TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-Set SLURM handle signals.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 464/500:  93%|█████████▎| 464/500 [01:51&lt;00:08,  4.15it/s, loss=-2.07e+03, v_num=1]
-Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1993.830. Signaling Trainer to stop.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 414/500:  83%|█████████████████████████████████████████████████████████████████████████████████▉                 | 414/500 [03:05&lt;00:38,  2.23it/s, loss=-2.07e+03, v_num=1]
+Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1987.802. Signaling Trainer to stop.
 </pre></div>
 </div>
-<img alt="../_images/b2b653f0e2dacc93c9c5d64c0c18d9e6182f7b64ec0caadf254cdb246a43b18a.png" src="../_images/b2b653f0e2dacc93c9c5d64c0c18d9e6182f7b64ec0caadf254cdb246a43b18a.png" />
-<img alt="../_images/2df150b0c85af55fb16df9d003b8bc2b04e1bbe05613eb90aa45f053a9743ce5.png" src="../_images/2df150b0c85af55fb16df9d003b8bc2b04e1bbe05613eb90aa45f053a9743ce5.png" />
-<img alt="../_images/27f7edb00029ca7cfc2fd3b83e1372e8265ff1ce7311a7462e623fc099869b6b.png" src="../_images/27f7edb00029ca7cfc2fd3b83e1372e8265ff1ce7311a7462e623fc099869b6b.png" />
-<img alt="../_images/3823672fcf613afa959845748ca273c2d73b7dcb1e1f11a904ca40c4602f121e.png" src="../_images/3823672fcf613afa959845748ca273c2d73b7dcb1e1f11a904ca40c4602f121e.png" />
+<img alt="../_images/0cd3b57cf69a53397e0bc39753bb122adcf080a90f4d3794102f3a4ce6b403a0.png" src="../_images/0cd3b57cf69a53397e0bc39753bb122adcf080a90f4d3794102f3a4ce6b403a0.png" />
+<img alt="../_images/cdb97d65ad347f6f9735a0a3d72dbc3e2674274caba71bf3110d98e02103ab31.png" src="../_images/cdb97d65ad347f6f9735a0a3d72dbc3e2674274caba71bf3110d98e02103ab31.png" />
+<img alt="../_images/3792a01a5626f9c2aa5dbe71bf4bf248bcecc8c37b5031b090f2da35d9fcdee4.png" src="../_images/3792a01a5626f9c2aa5dbe71bf4bf248bcecc8c37b5031b090f2da35d9fcdee4.png" />
+<img alt="../_images/be8127f92d2faff6f3cf329a74085050c1bc58c7216f0740e4a102a5a1b07cce.png" src="../_images/be8127f92d2faff6f3cf329a74085050c1bc58c7216f0740e4a102a5a1b07cce.png" />
 </div>
 </div>
 </section>
@@ -946,17 +952,17 @@ Monitored metric elbo_validation did not improve in the last 45 records. Best sc
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">mplscience</span><span class="o">.</span><span class="n">style_context</span><span class="p">():</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
 
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span>
         <span class="n">data</span><span class="o">=</span><span class="n">mse_df</span><span class="p">,</span>
-        <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span>
         <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-        <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Dataset&quot;</span><span class="p">,</span>
-        <span class="n">x</span><span class="o">=</span><span class="s2">&quot;log10 MSE ratio&quot;</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Dataset&quot;</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s2">&quot;log10 MSE ratio&quot;</span><span class="p">,</span>
         <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
         <span class="n">palette</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;#029e73&quot;</span><span class="p">,</span> <span class="s2">&quot;#ca9161&quot;</span><span class="p">],</span>
     <span class="p">);</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]);</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.55</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">]);</span>
 
 <span class="k">if</span> <span class="n">SAVE_FIGURES</span><span class="p">:</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
@@ -969,7 +975,13 @@ Monitored metric elbo_validation did not improve in the last 45 records. Best sc
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f63c1ee9bc6e8f7ba11a58aa94915dec3b6699ebc41ce2fb31ecc0e19d363314.png" src="../_images/f63c1ee9bc6e8f7ba11a58aa94915dec3b6699ebc41ce2fb31ecc0e19d363314.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/vol/storage/miniconda3/envs/velovi-py39/lib/python3.9/site-packages/seaborn/categorical.py:381: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  if LooseVersion(mpl.__version__) &lt; &quot;3.0&quot;:
+/vol/storage/miniconda3/envs/velovi-py39/lib/python3.9/site-packages/setuptools/_distutils/version.py:346: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  other = LooseVersion(other)
+</pre></div>
+</div>
+<img alt="../_images/796d54ce344b529afc52154b87426ec5976b5ed9b19a5f82285974fda7691a99.png" src="../_images/796d54ce344b529afc52154b87426ec5976b5ed9b19a5f82285974fda7691a99.png" />
 </div>
 </div>
 </section>
