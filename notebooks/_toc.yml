@@ -21,6 +21,7 @@ parts:
   - caption: Uncertainty
     chapters:
       - file: uncertainty/pancreas
+      - file: uncertainty/pancreas_noise
   - caption: Case Studies
     chapters:
       - file: case_studies/dentategyrus
