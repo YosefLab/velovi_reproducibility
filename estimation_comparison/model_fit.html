@@ -1,48 +1,59 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Model fit comparsion - MSE, velocity confidence, correlation &#8212; VeloVI Reproducibility</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -50,56 +61,87 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'estimation_comparison/model_fit';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Comparison of velocities between EM and VI model" href="pancreas.html" />
     <link rel="prev" title="Intro" href="../intro.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-    <div class="container-fluid" id="banner"></div>
-
     
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
-      
-      
-      
-      <h1 class="site-logo" id="site-title">VeloVI Reproducibility</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">VeloVI Reproducibility</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -108,1214 +150,424 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Estimation Comparison
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimation Comparison</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Model fit comparsion - MSE, velocity confidence, correlation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="pancreas.html">
-   Comparison of velocities between EM and VI model
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="simulated.html">
-   Inference comparison on simulated data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="runtime.html">
-   Runtime comparison
-  </a>
- </li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Model fit comparsion - MSE, velocity confidence, correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pancreas.html">Comparison of velocities between EM and VI model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulated.html">Inference comparison on simulated data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runtime.html">Runtime comparison</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Time Dependent Rates
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Time Dependent Rates</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../time_dependent_rates/mse_comparison.html">
-   MSE with time dependent transcription rate
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../time_dependent_rates/pancreas.html">
-   MSE with time dependent transcription rate
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../time_dependent_rates/mse_comparison.html">MSE with time dependent transcription rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../time_dependent_rates/pancreas.html">MSE with time dependent transcription rate</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Permutation Score
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Permutation Score</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../permutation_score/pfc.html">
-   Permutation score analysis - Pre-frontal cortex
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../permutation_score/dataset_comparison.html">
-   Permutation score - Dataset comparison
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../permutation_score/old_brain.html">
-   Imports and helper functions
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../permutation_score/spermatogenesis.html">
-   Permutation score analysis - Spermatogenesis
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../permutation_score/pancreas.html">
-   Permutation score analysis - Pancreas
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../permutation_score/pfc.html">Permutation score analysis - Pre-frontal cortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../permutation_score/dataset_comparison.html">Permutation score - Dataset comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../permutation_score/old_brain.html">Imports and helper functions</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../permutation_score/spermatogenesis.html">Permutation score analysis - Spermatogenesis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../permutation_score/pancreas.html">Permutation score analysis - Pancreas</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Uncertainty
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Uncertainty</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../uncertainty/pancreas.html">
-   Uncertainty analysis - Pancreas
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../uncertainty/pancreas.html">Uncertainty analysis - Pancreas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uncertainty/pancreas_noise.html">Uncertainty analysis - Pancreas</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Case Studies
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Case Studies</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../case_studies/dentategyrus.html">
-   Uncertainty analysis - Dentate gyrus
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../case_studies/pbmc.html">
-   PBMC
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../case_studies/dentategyrus.html">Uncertainty analysis - Dentate gyrus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../case_studies/pbmc.html">PBMC</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Runtime Analysis
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Runtime Analysis</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../runtime_analysis/velo_runtime_analysis.html">
-   VeloVI Runtime Analysis
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../runtime_analysis/velo_runtime_analysis.html">VeloVI Runtime Analysis</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Preprocessing Stability
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Preprocessing Stability</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../preprocessing_stability/dentategyrus/README.html">
-   Preprocessing analysis for RNA velocity in dentate gyurs
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/adata_generation.html">
-     Data generation for RNA velocity analysis in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_decoy_gtr_em_ss.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_decoy_gtr_vi.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_gtr_em_ss.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_gtr_vi.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_decoy_gtr_em_ss.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_decoy_gtr_vi.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_gtr_em_ss.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_gtr_vi.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_spliced_unspliced_gtr_em_ss.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_spliced_unspliced_gtr_vi.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/correlation_analysis.html">
-     Correlation analysis across preprocessing tools
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_exclude_em_ss.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_exclude_vi.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_include_em_ss.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_include_vi.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_exclude_em_ss.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_exclude_vi.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_include_em_ss.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_include_vi.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_em_ss.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_subtr_em_ss.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_subtr_vi.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_vi.html">
-     RNA velocity in dentate gyrus
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../preprocessing_stability/old_brain/README.html">
-   Preprocessing analysis for RNA velocity in mouse brain
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/adata_generation.html">
-     Data generation for RNA velocity analysis in mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_decoy_gtr_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_decoy_gtr_vi.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_gtr_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_gtr_vi.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_decoy_gtr_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_decoy_gtr_vi.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_gtr_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_gtr_vi.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_spliced_unspliced_gtr_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/alevin_spliced_unspliced_gtr_vi.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/correlation_analysis.html">
-     Correlation analysis across preprocessing tools
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/dropest_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/dropest_vi.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_exclude_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_exclude_vi.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_include_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_include_vi.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_exclude_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_exclude_vi.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_include_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_include_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_subtr_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_subtr_vi.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_vi.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/velocyto_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/old_brain/velocyto_vi.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../preprocessing_stability/pancreas/README.html">
-   Preprocessing analysis for RNA velocity in panreatic endocrinogenesis
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/adata_generation.html">
-     Data generation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_decoy_gtr_em_ss.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_decoy_gtr_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_gtr_em_ss.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_gtr_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_decoy_gtr_em_ss.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_decoy_gtr_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_gtr_em_ss.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_gtr_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_spliced_unspliced_gtr_em_ss.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/alevin_spliced_unspliced_gtr_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/correlation_analysis.html">
-     Correlation analysis across preprocessing tools
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/dropest_em_ss.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/dropest_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_exclude_em_ss.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_exclude_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_include_em_ss.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_include_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_exclude_em_ss.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_exclude_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_include_em_ss.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_include_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_em_ss.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_subtr_em_ss.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_subtr_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/velocyto_em_ss.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pancreas/velocyto_vi.html">
-     RNA velocity in pancreatic endocrinogenesis
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../preprocessing_stability/pfc/README.html">
-   Preprocessing analysis for RNA velocity in the prefrontal coretex
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/adata_generation.html">
-     Data generation for RNA velocity analysis in pre-frontal cortex
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_decoy_gtr_em_ss.html">
-     RNA velocity in adult mouse brain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_decoy_gtr_vi.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_gtr_em_ss.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_gtr_vi.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_decoy_gtr_em_ss.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_decoy_gtr_vi.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_gtr_em_ss.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_gtr_vi.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_spliced_unspliced_gtr_em_ss.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/alevin_spliced_unspliced_gtr_vi.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/correlation_analysis.html">
-     Correlation analysis across preprocessing tools
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/dropest_em_ss.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/dropest_vi.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_exclude_em_ss.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_exclude_vi.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_include.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_include_em_ss.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_exclude_em_ss.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_exclude_vi.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_include_em_ss.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_include_vi.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/starsolo_em_ss.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/starsolo_subtr_em_ss.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/starsolo_subtr_vi.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/starsolo_vi.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/velocyto_em_ss.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/pfc/velocyto_vi.html">
-     RNA velocity in PFC
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../preprocessing_stability/spermatogenesis/README.html">
-   Preprocessing analysis for RNA velocity in spermatogenesis
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/adata_generation.html">
-     Data generation for RNA velocity analysis in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_decoy_gtr_em_ss.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_decoy_gtr_vi.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_gtr_em_ss.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_gtr_vi.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_decoy_gtr_em_ss.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_decoy_gtr_vi.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_gtr_em_ss.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_gtr_vi.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_spliced_unspliced_gtr_em_ss.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_spliced_unspliced_gtr_vi.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/correlation_analysis.html">
-     Correlation analysis across preprocessing tools
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/dropest_em_ss.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/dropest_vi.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_exclude_em_ss.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_exclude_vi.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_include_em_ss.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_include_vi.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_exclude_em_ss.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_exclude_vi.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_include_em_ss.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_include_vi.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_em_ss.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_subtr_em_ss.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_subtr_vi.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_vi.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/velocyto_em_ss.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../preprocessing_stability/spermatogenesis/velocyto_vi.html">
-     RNA velocity in spermatogenesis
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing_stability/dentategyrus/README.html">Preprocessing analysis for RNA velocity in dentate gyurs</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/adata_generation.html">Data generation for RNA velocity analysis in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_decoy_gtr_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_decoy_gtr_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_gtr_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_coll_gtr_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_decoy_gtr_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_decoy_gtr_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_gtr_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_sep_gtr_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_spliced_unspliced_gtr_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/alevin_spliced_unspliced_gtr_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/correlation_analysis.html">Correlation analysis across preprocessing tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_exclude_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_exclude_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_include_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isocollapse_include_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_exclude_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_exclude_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_include_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/kallisto_isoseparate_include_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_subtr_em_ss.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_subtr_vi.html">RNA velocity in dentate gyrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/dentategyrus/starsolo_vi.html">RNA velocity in dentate gyrus</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing_stability/old_brain/README.html">Preprocessing analysis for RNA velocity in mouse brain</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/adata_generation.html">Data generation for RNA velocity analysis in mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_decoy_gtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_decoy_gtr_vi.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_gtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_coll_gtr_vi.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_decoy_gtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_decoy_gtr_vi.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_gtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_sep_gtr_vi.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_spliced_unspliced_gtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/alevin_spliced_unspliced_gtr_vi.html">RNA velocity in adult mouse brain</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/correlation_analysis.html">Correlation analysis across preprocessing tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/dropest_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/dropest_vi.html">RNA velocity in adult mouse brain</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_exclude_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_exclude_vi.html">RNA velocity in adult mouse brain</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_include_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isocollapse_include_vi.html">RNA velocity in adult mouse brain</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_exclude_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_exclude_vi.html">RNA velocity in adult mouse brain</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_include_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/kallisto_isoseparate_include_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_subtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_subtr_vi.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/starsolo_vi.html">RNA velocity in adult mouse brain</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/velocyto_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/old_brain/velocyto_vi.html">RNA velocity in adult mouse brain</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing_stability/pancreas/README.html">Preprocessing analysis for RNA velocity in panreatic endocrinogenesis</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/adata_generation.html">Data generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_decoy_gtr_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_decoy_gtr_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_gtr_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_coll_gtr_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_decoy_gtr_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_decoy_gtr_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_gtr_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_sep_gtr_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_spliced_unspliced_gtr_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/alevin_spliced_unspliced_gtr_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/correlation_analysis.html">Correlation analysis across preprocessing tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/dropest_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/dropest_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_exclude_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_exclude_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_include_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isocollapse_include_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_exclude_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_exclude_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_include_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/kallisto_isoseparate_include_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_subtr_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_subtr_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/starsolo_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/velocyto_em_ss.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pancreas/velocyto_vi.html">RNA velocity in pancreatic endocrinogenesis</a></li>
+
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing_stability/pfc/README.html">Preprocessing analysis for RNA velocity in the prefrontal coretex</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/adata_generation.html">Data generation for RNA velocity analysis in pre-frontal cortex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_decoy_gtr_em_ss.html">RNA velocity in adult mouse brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_decoy_gtr_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_gtr_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_coll_gtr_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_decoy_gtr_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_decoy_gtr_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_gtr_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_sep_gtr_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_spliced_unspliced_gtr_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/alevin_spliced_unspliced_gtr_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/correlation_analysis.html">Correlation analysis across preprocessing tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/dropest_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/dropest_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_exclude_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_exclude_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_include.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isocollapse_include_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_exclude_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_exclude_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_include_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/kallisto_isoseparate_include_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/starsolo_em_ss.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/starsolo_subtr_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/starsolo_subtr_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/starsolo_vi.html">RNA velocity in PFC</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/velocyto_em_ss.html">RNA velocity in PFC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/pfc/velocyto_vi.html">RNA velocity in PFC</a></li>
+
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/README.html">Preprocessing analysis for RNA velocity in spermatogenesis</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/adata_generation.html">Data generation for RNA velocity analysis in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_decoy_gtr_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_decoy_gtr_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_gtr_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_coll_gtr_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_decoy_gtr_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_decoy_gtr_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_gtr_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_sep_gtr_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_spliced_unspliced_gtr_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/alevin_spliced_unspliced_gtr_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/correlation_analysis.html">Correlation analysis across preprocessing tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/dropest_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/dropest_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_exclude_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_exclude_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_include_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isocollapse_include_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_exclude_em_ss.html">RNA velocity in spermatogenesis</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_exclude_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_include_em_ss.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/kallisto_isoseparate_include_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_em_ss.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_subtr_em_ss.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_subtr_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/starsolo_vi.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/velocyto_em_ss.html">RNA velocity in spermatogenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing_stability/spermatogenesis/velocyto_vi.html">RNA velocity in spermatogenesis</a></li>
+</ul>
+</li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/YosefLab/velovi_reproducibility/master?urlpath=tree/estimation_comparison/model_fit.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-</div>
+  
+  <div id="rtd-footer-container"></div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/YosefLab/velovi_reproducibility" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/YosefLab/velovi_reproducibility"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/estimation_comparison/model_fit.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/estimation_comparison/model_fit.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#library-imports">
-   Library imports
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#general-settings">
-   General settings
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#function-definitions">
-   Function definitions
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-loading">
-   Data loading
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-preprocessing">
-   Data preprocessing
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#model-fitting">
-   Model fitting
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#em-model">
-     EM model
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#vi-model">
-     VI model
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#comparison-of-model-fits">
-   Comparison of model fits
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mse">
-     MSE
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#confidence">
-     Confidence
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#velocity-correlation">
-     Velocity correlation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#latent-time-correlation">
-     Latent time correlation
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Model fit comparsion - MSE, velocity confidence, correlation</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#library-imports">
-   Library imports
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#general-settings">
-   General settings
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#function-definitions">
-   Function definitions
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-loading">
-   Data loading
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-preprocessing">
-   Data preprocessing
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#model-fitting">
-   Model fitting
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#em-model">
-     EM model
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#vi-model">
-     VI model
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#comparison-of-model-fits">
-   Comparison of model fits
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mse">
-     MSE
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#confidence">
-     Confidence
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#velocity-correlation">
-     Velocity correlation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#latent-time-correlation">
-     Latent time correlation
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Model fit comparsion - MSE, velocity confidence, correlation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#library-imports">Library imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-settings">General settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-definitions">Function definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loading">Data loading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing">Data preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-fitting">Model fitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#em-model">EM model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vi-model">VI model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-of-model-fits">Comparison of model fits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mse">MSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence">Confidence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-correlation">Velocity correlation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latent-time-correlation">Latent time correlation</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="model-fit-comparsion-mse-velocity-confidence-correlation">
-<h1>Model fit comparsion - MSE, velocity confidence, correlation<a class="headerlink" href="#model-fit-comparsion-mse-velocity-confidence-correlation" title="Permalink to this headline">#</a></h1>
+<h1>Model fit comparsion - MSE, velocity confidence, correlation<a class="headerlink" href="#model-fit-comparsion-mse-velocity-confidence-correlation" title="Permalink to this heading">#</a></h1>
 <section id="library-imports">
-<h2>Library imports<a class="headerlink" href="#library-imports" title="Permalink to this headline">#</a></h2>
+<h2>Library imports<a class="headerlink" href="#library-imports" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -1350,7 +602,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="general-settings">
-<h2>General settings<a class="headerlink" href="#general-settings" title="Permalink to this headline">#</a></h2>
+<h2>General settings<a class="headerlink" href="#general-settings" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scvi</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">dl_pin_memory_gpu_training</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1378,7 +630,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="function-definitions">
-<h2>Function definitions<a class="headerlink" href="#function-definitions" title="Permalink to this headline">#</a></h2>
+<h2>Function definitions<a class="headerlink" href="#function-definitions" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit_scvelo</span><span class="p">(</span><span class="n">adata</span><span class="p">):</span>
@@ -1510,7 +762,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="data-loading">
-<h2>Data loading<a class="headerlink" href="#data-loading" title="Permalink to this headline">#</a></h2>
+<h2>Data loading<a class="headerlink" href="#data-loading" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adatas</span> <span class="o">=</span> <span class="p">[</span>
@@ -1525,7 +777,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="data-preprocessing">
-<h2>Data preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this headline">#</a></h2>
+<h2>Data preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">adata_id</span><span class="p">,</span> <span class="n">adata</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">adatas</span><span class="p">):</span>
@@ -1597,9 +849,9 @@ computing velocities
 </div>
 </section>
 <section id="model-fitting">
-<h2>Model fitting<a class="headerlink" href="#model-fitting" title="Permalink to this headline">#</a></h2>
+<h2>Model fitting<a class="headerlink" href="#model-fitting" title="Permalink to this heading">#</a></h2>
 <section id="em-model">
-<h3>EM model<a class="headerlink" href="#em-model" title="Permalink to this headline">#</a></h3>
+<h3>EM model<a class="headerlink" href="#em-model" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adatas</span> <span class="o">=</span> <span class="p">[</span>
@@ -1657,7 +909,7 @@ computing velocities
 </div>
 </section>
 <section id="vi-model">
-<h3>VI model<a class="headerlink" href="#vi-model" title="Permalink to this headline">#</a></h3>
+<h3>VI model<a class="headerlink" href="#vi-model" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fits_velovi</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1714,18 +966,18 @@ Set SLURM handle signals.
 Monitored metric elbo_validation did not improve in the last 45 records. Best score: -1824.585. Signaling Trainer to stop.
 </pre></div>
 </div>
-<img alt="../_images/model_fit_23_8.png" src="../_images/model_fit_23_8.png" />
-<img alt="../_images/model_fit_23_9.png" src="../_images/model_fit_23_9.png" />
-<img alt="../_images/model_fit_23_10.png" src="../_images/model_fit_23_10.png" />
-<img alt="../_images/model_fit_23_11.png" src="../_images/model_fit_23_11.png" />
+<img alt="../_images/90faae0fc921dd9adadfa9f2426ee307c9beff179a323157e310da347d06c9ac.png" src="../_images/90faae0fc921dd9adadfa9f2426ee307c9beff179a323157e310da347d06c9ac.png" />
+<img alt="../_images/3b005fa90c5eec3df34b4180e9e8f9725047a1636f1d806a4aa56611ad4b75a6.png" src="../_images/3b005fa90c5eec3df34b4180e9e8f9725047a1636f1d806a4aa56611ad4b75a6.png" />
+<img alt="../_images/c29554c26cc42b19357de2da536172311dc6af8c3f599234a165cbe5ead9c50f.png" src="../_images/c29554c26cc42b19357de2da536172311dc6af8c3f599234a165cbe5ead9c50f.png" />
+<img alt="../_images/5385a92352fe22d45a42d965e8fafa60a488ae4196c14058c7b8bc4103a087a4.png" src="../_images/5385a92352fe22d45a42d965e8fafa60a488ae4196c14058c7b8bc4103a087a4.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="comparison-of-model-fits">
-<h2>Comparison of model fits<a class="headerlink" href="#comparison-of-model-fits" title="Permalink to this headline">#</a></h2>
+<h2>Comparison of model fits<a class="headerlink" href="#comparison-of-model-fits" title="Permalink to this heading">#</a></h2>
 <section id="mse">
-<h3>MSE<a class="headerlink" href="#mse" title="Permalink to this headline">#</a></h3>
+<h3>MSE<a class="headerlink" href="#mse" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1783,12 +1035,12 @@ Monitored metric elbo_validation did not improve in the last 45 records. Best sc
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/model_fit_27_0.png" src="../_images/model_fit_27_0.png" />
+<img alt="../_images/d7a657709acb9ea3de2d1d80f519f401baf82cab316e5d1a32fcaf7168ff57b4.png" src="../_images/d7a657709acb9ea3de2d1d80f519f401baf82cab316e5d1a32fcaf7168ff57b4.png" />
 </div>
 </div>
 </section>
 <section id="confidence">
-<h3>Confidence<a class="headerlink" href="#confidence" title="Permalink to this headline">#</a></h3>
+<h3>Confidence<a class="headerlink" href="#confidence" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1812,9 +1064,7 @@ Monitored metric elbo_validation did not improve in the last 45 records. Best sc
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>computing velocity graph (using 8/112 cores)
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "4585b916a780455098b9e2b85ae6ff4e", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:13) --&gt; added 
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4585b916a780455098b9e2b85ae6ff4e", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:13) --&gt; added 
     &#39;velocity_graph&#39;, sparse matrix with cosine correlations (adata.uns)
 --&gt; added &#39;velocity_length&#39; (adata.obs)
 --&gt; added &#39;velocity_confidence&#39; (adata.obs)
@@ -1822,9 +1072,7 @@ Monitored metric elbo_validation did not improve in the last 45 records. Best sc
 computing velocity graph (using 8/112 cores)
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "5f6239d3cbeb47cf9b47020cc89641ab", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:40) --&gt; added 
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5f6239d3cbeb47cf9b47020cc89641ab", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:40) --&gt; added 
     &#39;velocity_graph&#39;, sparse matrix with cosine correlations (adata.uns)
 --&gt; added &#39;velocity_length&#39; (adata.obs)
 --&gt; added &#39;velocity_confidence&#39; (adata.obs)
@@ -1832,9 +1080,7 @@ computing velocity graph (using 8/112 cores)
 computing velocity graph (using 8/112 cores)
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "ffee3835c3e949db8f76d49fd22ada17", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:02) --&gt; added 
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ffee3835c3e949db8f76d49fd22ada17", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:02) --&gt; added 
     &#39;velocity_graph&#39;, sparse matrix with cosine correlations (adata.uns)
 --&gt; added &#39;velocity_length&#39; (adata.obs)
 --&gt; added &#39;velocity_confidence&#39; (adata.obs)
@@ -1842,9 +1088,7 @@ computing velocity graph (using 8/112 cores)
 computing velocity graph (using 8/112 cores)
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "1957388470814f86ad537fe46d6edbf2", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:02) --&gt; added 
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1957388470814f86ad537fe46d6edbf2", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:02) --&gt; added 
     &#39;velocity_graph&#39;, sparse matrix with cosine correlations (adata.uns)
 --&gt; added &#39;velocity_length&#39; (adata.obs)
 --&gt; added &#39;velocity_confidence&#39; (adata.obs)
@@ -1852,9 +1096,7 @@ computing velocity graph (using 8/112 cores)
 computing velocity graph (using 8/112 cores)
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "e545f5e587ae40a38a38435227e5e7f9", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:04) --&gt; added 
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e545f5e587ae40a38a38435227e5e7f9", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:04) --&gt; added 
     &#39;velocities_velovi_graph&#39;, sparse matrix with cosine correlations (adata.uns)
 --&gt; added &#39;velocities_velovi_length&#39; (adata.obs)
 --&gt; added &#39;velocities_velovi_confidence&#39; (adata.obs)
@@ -1862,9 +1104,7 @@ computing velocity graph (using 8/112 cores)
 computing velocity graph (using 8/112 cores)
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "93c1117b15ae41769f7eb846749a7d08", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:44) --&gt; added 
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "93c1117b15ae41769f7eb846749a7d08", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:44) --&gt; added 
     &#39;velocities_velovi_graph&#39;, sparse matrix with cosine correlations (adata.uns)
 --&gt; added &#39;velocities_velovi_length&#39; (adata.obs)
 --&gt; added &#39;velocities_velovi_confidence&#39; (adata.obs)
@@ -1872,9 +1112,7 @@ computing velocity graph (using 8/112 cores)
 computing velocity graph (using 8/112 cores)
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "14234d910c9a4c4298652a68977a8501", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:02) --&gt; added 
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "14234d910c9a4c4298652a68977a8501", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:02) --&gt; added 
     &#39;velocities_velovi_graph&#39;, sparse matrix with cosine correlations (adata.uns)
 --&gt; added &#39;velocities_velovi_length&#39; (adata.obs)
 --&gt; added &#39;velocities_velovi_confidence&#39; (adata.obs)
@@ -1882,9 +1120,7 @@ computing velocity graph (using 8/112 cores)
 computing velocity graph (using 8/112 cores)
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "c1a15f12f37b4153aa875ea1dc5a2400", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:04) --&gt; added 
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c1a15f12f37b4153aa875ea1dc5a2400", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:04) --&gt; added 
     &#39;velocities_velovi_graph&#39;, sparse matrix with cosine correlations (adata.uns)
 --&gt; added &#39;velocities_velovi_length&#39; (adata.obs)
 --&gt; added &#39;velocities_velovi_confidence&#39; (adata.obs)
@@ -1928,12 +1164,12 @@ computing velocity graph (using 8/112 cores)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/model_fit_30_0.png" src="../_images/model_fit_30_0.png" />
+<img alt="../_images/dd4614bcce827defd3c76a5a52994ec55ab5cd1928256b2ff0a7c367e253a874.png" src="../_images/dd4614bcce827defd3c76a5a52994ec55ab5cd1928256b2ff0a7c367e253a874.png" />
 </div>
 </div>
 </section>
 <section id="velocity-correlation">
-<h3>Velocity correlation<a class="headerlink" href="#velocity-correlation" title="Permalink to this headline">#</a></h3>
+<h3>Velocity correlation<a class="headerlink" href="#velocity-correlation" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlations</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1972,12 +1208,12 @@ computing velocity graph (using 8/112 cores)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/model_fit_33_0.png" src="../_images/model_fit_33_0.png" />
+<img alt="../_images/7f3a406213231299f59cc294f23b1861f99320ebfe0f90c28205f20c80dbe29e.png" src="../_images/7f3a406213231299f59cc294f23b1861f99320ebfe0f90c28205f20c80dbe29e.png" />
 </div>
 </div>
 </section>
 <section id="latent-time-correlation">
-<h3>Latent time correlation<a class="headerlink" href="#latent-time-correlation" title="Permalink to this headline">#</a></h3>
+<h3>Latent time correlation<a class="headerlink" href="#latent-time-correlation" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlations</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2016,7 +1252,7 @@ computing velocity graph (using 8/112 cores)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/model_fit_36_0.png" src="../_images/model_fit_36_0.png" />
+<img alt="../_images/0d8741fd6ab1b4ea33095bd9db6c4c76a7a21b998edfc42f9bcf32bcc02d6adc.png" src="../_images/0d8741fd6ab1b4ea33095bd9db6c4c76a7a21b998edfc42f9bcf32bcc02d6adc.png" />
 </div>
 </div>
 </section>
@@ -2035,7 +1271,7 @@ computing velocity graph (using 8/112 cores)
             mode: "velovi-py39"
         },
         kernelOptions: {
-            kernelName: "velovi-py39",
+            name: "velovi-py39",
             path: "./estimation_comparison"
         },
         predefinedOutput: true
@@ -2043,50 +1279,121 @@ computing velocity graph (using 8/112 cores)
     </script>
     <script>kernelName = 'velovi-py39'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Intro</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Intro</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="pancreas.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="pancreas.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Comparison of velocities between EM and VI model</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By VeloVI Team<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#library-imports">Library imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-settings">General settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-definitions">Function definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loading">Data loading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing">Data preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-fitting">Model fitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#em-model">EM model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vi-model">VI model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-of-model-fits">Comparison of model fits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mse">MSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence">Confidence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-correlation">Velocity correlation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latent-time-correlation">Latent time correlation</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By VeloVI Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
